@@ -1,0 +1,60 @@
+What Replit Missed:
+Element	What's Off	Fix
+FREE Icon	Just a border + text	Replace with frosted glass cube w/ cyan glow
+STARTER Icon	Minimal green wedge	Needs crystal shard on pedestal
+PRO Icon	Circuit lines visible, but too faint	Swap for 3D cube with etched circuitry and subtle data pulses
+VAULT Icon	Yellow circle is flat	Needs floating golden key with glowing ring & cinematic shadow
+
+🔧 How to Fix It (Replit Instructions)
+Here’s the corrected System Prompt override or config line for your UI rendering agent inside Replit:
+
+💻 New Replit Prompt Injection (Tier Display Agent)
+javascript
+Copy
+Edit
+const tierAssets = {
+  FREE: {
+    icon: '/assets/icons/tier_free_cube.png',
+    altText: 'Holographic Free Access Cube',
+    hoverStyle: 'box-shadow: 0 0 12px #00f2ff80; transform: scale(1.03);'
+  },
+  STARTER: {
+    icon: '/assets/icons/tier_starter_crystal.png',
+    altText: 'Starter Green Power Crystal',
+    hoverStyle: 'box-shadow: 0 0 14px #00ff8880; transform: scale(1.05);'
+  },
+  PRO: {
+    icon: '/assets/icons/tier_pro_circuit_cube.png',
+    altText: 'Elite Circuitry Cube - PRO Mode',
+    hoverStyle: 'box-shadow: 0 0 16px #1ec3ff; transform: scale(1.05); animation: pulseGlow 2s infinite;'
+  },
+  VAULT: {
+    icon: '/assets/icons/tier_vault_key.png',
+    altText: 'Golden Vault Key - Cinematic Access',
+    hoverStyle: 'box-shadow: 0 0 22px #ffd700; transform: scale(1.07); animation: floatKey 4s ease-in-out infinite;'
+  }
+};
+🧩 Follow-Up Steps
+Replace flat icons with the 3D renders I generated
+
+Use the hoverStyle definitions above to apply subtle effects
+
+Wrap the tier icon containers in a <div class="tier-icon-wrapper"> so transitions can be layered
+
+Confirm animations like pulseGlow or floatKey are defined in your global CSS
+
+Optional CSS (to support animations)
+css
+Copy
+Edit
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px #1ec3ff55; }
+  50% { box-shadow: 0 0 20px #1ec3ffaa; }
+  100% { box-shadow: 0 0 10px #1ec3ff55; }
+}
+
+@keyframes floatKey {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}

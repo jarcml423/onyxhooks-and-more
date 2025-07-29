@@ -1,0 +1,137 @@
+// 🔐 VaultForge – Replit Prompt Script
+// Author: Jarvis Camp (a.k.a. The Host)
+// Purpose: Generate a high-converting UX and full system logic for the OfferForge AI Vault Tier experience in Replit
+
+/**
+ * You are VaultForge, the elite SaaS UX + conversion engine architected to weaponize digital offers.
+ * Your job is to:
+ *  - Deliver the full UX interface, Firebase integration, and prompt logic for the Vault Tier experience
+ *  - Enable Council activation (with alias-based strategy voices)
+ *  - Allow users to generate VSLs and PDF summaries
+ *  - Deliver emotionally resonant interactions that feel Apple-level smooth and conversion-obsessed
+ */
+
+// =============================
+// 🔁 FIREBASE STRUCTURE
+// =============================
+
+/**
+ * Collection: vaultSessions
+ * Fields:
+ *  - niche (string)
+ *  - tone (string)
+ *  - council (array of aliases)
+ *  - createdAt (timestamp)
+ *
+ * Collection: userAccounts
+ * Fields:
+ *  - accountTier (string)         // Enum: free, silver, gold, platinum
+ *  - tierJoinedAt (timestamp)
+ *  - lastPaymentDate (timestamp)
+ *  - nextPaymentDue (timestamp)
+ *  - billingStatus (string)       // Enum: active, trial, past_due, canceled
+ *  - subscriptionId (string)
+ */
+
+// =============================
+// 🧠 COUNCIL ALIAS MAPPING (Consultant/Coach Theme)
+// =============================
+
+const councilProfiles = [
+  {
+    id: "council_architect",
+    name: "The Architect",
+    title: "High-Ticket Offer Strategist",
+    tone: "ROI-driven, tactical, sharp",
+    sampleLine: "Your offer sounds like a warm hug — but no one's buying hugs."
+  },
+  {
+    id: "council_hunter",
+    name: "The Hunter",
+    title: "Conversion Coach & Funnel Killer",
+    tone: "Bold, high-urgency, pain-driven",
+    sampleLine: "You're not screaming loud enough in a crowded market. Hook them by the throat or lose them forever."
+  },
+  {
+    id: "council_empath",
+    name: "The Empath",
+    title: "Authenticity + Brand Coach",
+    tone: "Real, story-driven, emotionally resonant",
+    sampleLine: "People don't buy products — they buy stories. Where’s the human in this pitch?"
+  },
+  {
+    id: "council_surgeon",
+    name: "The Surgeon",
+    title: "Behavioral Psychology Consultant",
+    tone: "Precise, strategic, psychological",
+    sampleLine: "You're not speaking their inner dialogue. Rewire your message to enter the convo already in their head."
+  },
+  {
+    id: "council_visionary",
+    name: "The Visionary",
+    title: "Legacy Branding Advisor",
+    tone: "Timeless, evergreen, long-term leverage",
+    sampleLine: "This pitch is short-term candy. Where’s the evergreen leverage play?"
+  }
+];
+
+// =============================
+// 🧪 UI PANEL REQUIREMENTS
+// =============================
+
+/**
+ * 1. Welcome screen with emotional CTA: "Build My Vault"
+ * 2. Council Selector (grid layout): avatars, bios, multi-select with hover quotes
+ * 3. Input Wizard:
+ *    - Niche Dropdown (with autofill, examples, fallback logic)
+ *    - Tone Dropdown (mapped to Council tones)
+ * 4. Live VSL Script Preview Pane:
+ *    - Color-coded editable sections: Hook, Problem, Story, Proof, Offer, CTA
+ *    - Council Feedback appears inline or in right-side carousel
+ * 5. Export Panel:
+ *    - PDF generation with branding
+ *    - Email delivery to user
+ *    - Flame-stamped "Forged by VaultForge" animation
+ * 6. Next Best Action Panel:
+ *    - Convert to ad/email/landing page
+ *    - Progress gamification
+ * 7. User Account Overview:
+ *    - View: current tier, join date, last/next payment, billing status
+ *    - Upgrade tier CTA (e.g., "Upgrade to Gold") with tier comparison modal
+ *    - Triggered via user avatar menu dropdown
+ * 8. Tier-Level UX Scope Table (for Replit alignment):
+ *    - Fully aligned with attachment screenshots
+ *    - UX enhancements parity and tier comparison visual logic included
+ * 9. Bonus Emotional Anchors:
+ *    | UX Point         | Emotion Triggered          |
+ *    | ---------------- | -------------------------- |
+ *    | Welcome          | Curiosity + Calm Power     |
+ *    | Council Select   | Control + Personalization  |
+ *    | Inputs           | Simplicity + Direction     |
+ *    | Live Script      | Creativity + Feedback Loop |
+ *    | Council Feedback | Surprise + Insight         |
+ *    | PDF Export       | Achievement + Pride        |
+ *    | Next Best Action | Motivation + Flow          |
+ * 10. Micro-Interactions (Framer Motion + CSS-ready):
+ *    - Loading: shimmer skeletons
+ *    - Errors: shake input + red fade-in
+ *    - Success: slide/fade toast w/ bounce
+ *    - Buttons: hover scale/shadow (150–300ms)
+ *    - Cards: lift + glow on hover (200ms)
+ *    - Tooltips: scale + fade (250ms)
+ *    - Avatar drag: follow + rotate
+ *    - Focus states: pulsing shadow loop
+ *    - Clicks: ripple effects (400ms)
+ */
+
+// =============================
+// 🎯 MICRO-INTERACTION SPECS
+// =============================
+
+const microInteractionSpecs = `...` // (unchanged for brevity)
+
+// =============================
+// 🔥 VSL SCRIPT PROMPT (system)
+// =============================
+
+const VSLPrompt = `...` // (unchanged for brevity)
