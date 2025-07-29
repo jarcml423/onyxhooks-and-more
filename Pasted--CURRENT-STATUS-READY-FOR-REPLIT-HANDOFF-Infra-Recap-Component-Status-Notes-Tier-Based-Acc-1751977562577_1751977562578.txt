@@ -1,0 +1,52 @@
+✅ CURRENT STATUS: READY FOR REPLIT HANDOFF
+🔧 Infra Recap:
+
+Component	Status	Notes
+🧠 Tier-Based Account Seeding	✅ Complete	Free, Starter, Pro, Vault test users with proper roles and usernames seeded
+🚦 Auth Flow & Protected Routes	✅ Validated	Secure access flow tested across /dashboard, /hooks, /analytics, etc.
+🧪 Puppeteer E2E Framework	✅ Operational	Modular test cases scripted per tier, headless-compatible
+🗂 Tier Logic Validation	✅ Functional	Feature gates, redirects, and usage caps enforced and tested
+🖼 Screenshot Captures	✅ Integrated	Full screenshots on pass/fail, timestamped for transparency
+🔁 Repeatable Test Cycles	✅ Re-runnable	Fully stateless: resets data between test cycles
+🔐 AI Council Access Checks	✅ Per-Tier Logic	Verified council access (blurred, locked, or full) as per plan
+📊 Analytics & Leaderboards	✅ Reporting Ready	Validates 9-second challenge updates, usage dashboards, leaderboard logic
+🔥 Vault Extras (Swipe Bank, Elite Coaching, Drop Checks)	✅ Detected + Tested	Vault-only access validated
+🧱 Challenge Window Logic	✅ Functional	Confirms lockdown after 30-day NOS window ends, reopens quarterly
+🧼 Data Integrity Checks	✅ Built In	Confirms all dashboards pull real data, not mocks
+📤 Report Output	✅ JSON + Screens	Structured output ready for logging or Slack/Email delivery
+
+🔁 HOW TO HAND OFF TO REPLIT:
+✅ Ensure Replit's test server is using the seeded test accounts
+
+✅ Upload the Puppeteer test suite + config to Replit’s secure /scripts/ or /tests/ folder
+
+✅ Run node runSmokeTest.js or via npm test wrapper
+
+✅ Review output:
+
+results/logs/ – Test pass/fail with screenshots
+
+results/json/ – Parsed by feature/tier
+
+Slack-ready summary (optional if webhook connected)
+
+📦 FILES TO HAND OFF:
+runSmokeTest.js
+
+config/tiers.json
+
+utils/authHelpers.js
+
+tests/smoke/freeTierTest.js
+
+tests/smoke/starterTierTest.js
+
+tests/smoke/proTierTest.js
+
+tests/smoke/vaultTierTest.js
+
+tests/shared/councilTest.js
+
+results/.gitkeep (empty dir for screenshots)
+
+README.md with run instructions

@@ -1,0 +1,133 @@
+Replit can use, including all four email templates with personalization and logic baked in:
+
+✅ Prompt for Replit: Quiz Campaign Email Workflow + Templates
+📌 Purpose:
+Upon quiz completion, capture user details and launch a 4-part personalized email campaign. This campaign nurtures the lead, builds trust, and gradually introduces the value of higher tiers.
+
+1️⃣ Trigger Logic (Backend)
+Trigger event:
+When a user submits the quiz form:
+
+ts
+Copy
+Edit
+POST /api/quiz/submit
+Payload:
+{
+  "firstName": "Sarah",
+  "lastName": "Johnson",
+  "email": "sarah@example.com",
+  "score": 87,
+  "tier": "Pro",
+  "industry": "Fitness Coach"
+}
+Actions:
+
+Store all fields in the database.
+
+Trigger the startEmailCampaign() function passing all captured info.
+
+Begin 4-part email sequence spaced over 10 days.
+
+2️⃣ Email Campaign Flow
+📧 Email 1: Results Summary
+Trigger: Immediately after quiz
+
+Subject: Your OfferForge Results Are In, {firstName}
+
+Body:
+
+markdown
+Copy
+Edit
+Hi {firstName},
+
+Thanks for taking the OfferForge Quiz! Based on your results, you’re best matched with the **{tier} Tier**.
+
+🔥 Why {tier}?  
+You're showing signs of strong potential, but a few key adjustments could rapidly accelerate your offer strategy.
+
+👉 Start using your free tools to begin optimizing today:
+[Access OfferForge Portal]
+
+To your breakthrough,  
+— The OfferForge AI Team
+📧 Email 2: Foundational Blog
+Trigger: +2 days
+
+Subject: What {industry} Coaches Like You Do Next…
+
+Body:
+
+markdown
+Copy
+Edit
+Hi {firstName},
+
+Most {industry} coaches never realize how close they are to their next breakthrough.
+
+Here’s a foundational article tailored just for you:
+[Read: How Coaches Break Through Their Plateau]
+
+We’re rooting for you. When you’re ready, your Pro-tier tools are waiting.
+
+— The OfferForge AI Team
+📧 Email 3: Social Proof & Insight
+Trigger: +5 days
+
+Subject: How Susan Broke Her Coaching Plateau 🚀
+
+Body:
+
+markdown
+Copy
+Edit
+Hi {firstName},
+
+Susan was just like you — coaching strong, but unsure of her next move. That’s when she upgraded.
+
+> “I asked myself how far I’d made it without a coach… then I realized, maybe I needed one too. OfferForge Pro gave me the system, structure, and spark I needed to grow 3x in 6 months.”
+
+The biggest leap? Finally having tools that match your vision.
+
+🔍 See what’s waiting at Pro level:
+[Preview the Pro Experience →]
+
+You’ve got this,  
+— The OfferForge AI Team
+📧 Email 4: Conversion Offer
+Trigger: +8–9 days
+
+Subject: Ready for Your Breakthrough? 🔓
+
+Body:
+
+markdown
+Copy
+Edit
+Hi {firstName},
+
+You’ve done the groundwork — now let’s unlock the growth.
+
+We’d like to offer you **15% off your first month** on the Pro Tier if you upgrade within the next 72 hours.
+
+✨ Upgrade now and unlock:
+- Unlimited offer creation
+- Personalized copy audits
+- Pro-tier blog strategies
+- Conversion estimator access
+
+[Upgrade & Start Winning →]
+
+One decision can change everything.  
+— The OfferForge AI Team
+3️⃣ Rules & Logic
+Store firstName, lastName, email, industry, score, and tier
+
+Trigger startEmailCampaign(userData) on quiz completion
+
+Emails must include {firstName} in greeting
+
+Stop campaign if user upgrades tier before Email 4
+
+Optional: fallback sequence if user doesn’t open 2+ emails

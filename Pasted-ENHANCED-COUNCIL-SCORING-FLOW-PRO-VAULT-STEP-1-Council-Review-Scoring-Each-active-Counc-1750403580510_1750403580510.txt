@@ -1,0 +1,91 @@
+ENHANCED COUNCIL SCORING FLOW (PRO & VAULT)
+🧑‍⚖️ STEP 1: Council Review & Scoring
+Each active Council agent evaluates the Hook or Offer using the predefined scorecard.
+
+Pro Tier → 3 Council Agents (e.g., Sabien, Blaze, Mosaic)
+
+Vault Tier → Full Council (5 core + Michael)
+
+Each agent returns:
+
+A score per dimension
+
+A short justification note
+
+A revision suggestion (if the score is under 90)
+
+Example (from Sabien):
+
+Clarity: 18/20 – “Almost perfect, but consider shortening the lead phrase.”
+
+Urgency: 15/20 – “Add a time-based driver like ‘before July 1’.”
+
+The system averages all agent scores to calculate the final composite.
+
+🧮 STEP 2: Michael Interprets Scores + ROI Lens
+Michael (the Closer) steps in to analyze the overall scoring:
+
+Highlights what’s holding back conversion
+
+Points out deal-breaking gaps in trust, urgency, or ROI framing
+
+Determines if this asset is "launchable" or needs rewrites
+
+Michael:
+“This hook gets an 86 overall. The clarity and pain are strong, but the urgency is flat. If this were on a landing page, it would underperform.”
+
+🔁 STEP 3: Alex Rebuilds to a 100
+Alex receives the original hook + Council composite + Michael’s closing feedback.
+
+He then:
+
+Rewrites the hook or offer to aim for a 95–100 score
+
+Explains why this version wins (based on frameworks + heuristics)
+
+Outputs 2 upgraded versions (e.g., one for ads, one for email)
+
+Alex:
+“Let’s sharpen the contrast. Add ‘…before your next client call’ and frame the result. Boom — now it pops.
+Here’s your version for IG Reels and your version for landing page H1.”
+
+🧪 STEP 4: Coach Sees Side-by-Side
+Final Output for the Coach:
+
+Original	Council Score	Alex Upgrade	Upgrade Score
+Hook	“Stop losing clients…”	86	“Stop losing clients before they even book. Fix this 10-second flaw.”	97
+
+CTA: “Use Alex’s version — it hits faster, scores higher, and converts better.”
+
+🔒 VAULT EXCLUSIVE BONUS
+Alex gives tactical test recommendation
+
+“A/B test this hook vs original on ads. Watch CTR shift.”
+
+Michael adds objection pre-handling or risk reversal enhancement
+
+Optional: Visual badge →
+✅ Council-Certified: Hook Score 97/100
+
+🔧 REPLIT IMPLEMENTATION OUTLINE
+ts
+Copy
+Edit
+// For each Hook
+councilMembers.forEach(agent => {
+  const score = agent.scoreHook(hookText);
+  storeFeedback(agent.name, score, agent.justification, agent.rewriteSuggestion);
+});
+
+const compositeScore = averageAllScoresAcrossAgents();
+const michaelFeedback = michael.evaluate(compositeScore);
+const alexUpgrade = alex.rewriteHook(hookText, michaelFeedback, councilFeedback);
+
+return {
+  originalHook: hookText,
+  councilScore: compositeScore,
+  michaelNotes: michaelFeedback,
+  alexVersion: alexUpgrade.text,
+  upgradeScore: alexUpgrade.score,
+  reasoning: alexUpgrade.explanation
+};

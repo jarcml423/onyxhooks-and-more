@@ -1,0 +1,102 @@
+Absolutely Boss. Here is your **fully loaded Replit prompt** to build out the **entire Free Tier experience**, including:
+
+* ✅ UI layout for onboarding
+* ✅ Limits for hooks and offers
+* ✅ Logic for “Create Offer”
+* ✅ Blog personalization
+* ✅ Tier limit messages + Pro teaser
+
+---
+
+### ✅ Full Replit Prompt: Free Tier Experience (UI + Logic + Limits + Blogs)
+
+```json
+{
+  "task": "Implement the complete Free Tier user experience for OfferForge AI",
+  "tier": "Free",
+  "features": {
+    "dashboardUI": {
+      "tabs": ["Create Offer", "My Hooks", "Offer History", "Your Blog"],
+      "welcomeModal": {
+        "headline": "Welcome to OfferForge AI",
+        "subheadline": "We’ll guide you through creating your first high-converting offer.",
+        "button": "Let’s create your first offer together"
+      },
+      "limitTracker": {
+        "hooksLimit": "2 Hooks per month",
+        "offersLimit": "2 Offers per month",
+        "visualCue": "Progress bar + Lock icon when limits reached"
+      },
+      "lockedElements": {
+        "style": "Blurred with tooltip on hover",
+        "tooltipMessage": "Upgrade to Pro Tier to unlock"
+      }
+    },
+    "createOfferFlow": {
+      "step1": "User clicks 'Create Offer'",
+      "step2": "Show onboarding overlay with intro modal",
+      "step3": {
+        "collectInfo": [
+          "What kind of coach are you? (Dropdown: Health, Fitness, Business, Spiritual, Sports, Other)",
+          "What type of offer are you creating? (Dropdown: 1:1 Coaching, Course, Group Program, Workshop, Other)"
+        ]
+      },
+      "step4": "AI autogenerates an initial offer with Hook → Problem → Promise → CTA",
+      "step5": "User can edit, preview, and save the offer",
+      "step6": {
+        "onSave": [
+          "Trigger celebration animation",
+          "Show toast: 'First Offer Created!'",
+          "Unlock blog titled: 'Now that you’ve built your first offer…what’s next?'"
+        ]
+      },
+      "step7": {
+        "checkLimit": "If 2 offers already saved this month, disable 'Create Offer' button and show: 'Offer Limit Reached – Available on Pro Tier'",
+        "blurNextStepCTA": "Show blurred card preview of what Pro users unlock: conversion insights, CTR estimator, etc.",
+        "gifPreview": "6–8 sec loop showing Pro tier offer building screen with stats (e.g. 14% boost in conversion rate)"
+      }
+    },
+    "hookCreationFlow": {
+      "limit": 2,
+      "cta": "Create Hook",
+      "limitMessage": "Hook Limit Reached – Upgrade to Pro Tier for unlimited hooks"
+    },
+    "blogExperience": {
+      "initialBlog": {
+        "title": "What Makes a Great Hook?",
+        "body": "Discover the psychology behind winning hooks, how to stand out in saturated markets, and what common mistakes to avoid.",
+        "personalization": "Inject user's coach type or business name in intro paragraph"
+      },
+      "followUpBlogs": {
+        "Week2": "Now That You Have a Hook, Build the Right Promise",
+        "Week3": "From Offer to Action – The CTA That Converts",
+        "personalizationTags": ["coachType", "firstName"]
+      }
+    }
+  },
+  "personalization": {
+    "profileFieldsRequired": ["First Name", "Email", "Coach Type", "Industry"],
+    "blogSelection": "Based on 'Coach Type', serve matching version of the article"
+  },
+  "upsellExperience": {
+    "offerLimitTrigger": "When offers or hooks are maxed out, show locked Pro UI with blurred previews",
+    "upgradeModal": {
+      "title": "Unlock More Firepower",
+      "body": "You’ve seen what’s possible. Pro Tier gives you unlimited offers, advanced analytics, and priority insights.",
+      "cta": "Upgrade to Pro – First Month 15% Off"
+    }
+  },
+  "tone": "Supportive, growth-focused, warm"
+}
+```
+
+---
+
+Boss, this gives Replit everything needed to:
+
+1. Launch a **first-class Free Tier** onboarding and engagement system
+2. Track usage limits for hooks/offers
+3. Deliver personalized value
+4. Tease the Pro Tier at exactly the right time
+
+💥 Ready to execute. Want me to prep the **Pro Tier prompt** next?

@@ -1,0 +1,65 @@
+ Here's a Replit-friendly prompt that will guide your Replit AI (Ghostwriter) or workspace assistant to implement, test, and validate admin access logic for the OnyxHooks & More™ app — all while preserving production-readiness.
+
+✅ REPLIT PROMPT: Implement & Validate Admin Access with Marketing Intelligence Dashboard
+tsx
+Copy
+Edit
+// 🔧 IMPLEMENT ADMIN ACCESS AND MARKETING INTELLIGENCE DASHBOARD
+
+// STEP 1: Add an environment variable to define the admin email
+// File: .env
+ADMIN_EMAIL=admin@onyxhooks.com
+
+// STEP 2: Update user registration logic to assign the admin role based on email
+// File: server/controllers/authController.ts (or equivalent)
+if (email === process.env.ADMIN_EMAIL) {
+  user.role = 'admin';
+} else {
+  user.role = 'user';
+}
+
+// STEP 3: Add middleware to protect admin-only routes
+// File: server/middleware/isAdmin.ts
+export function isAdmin(req, res, next) {
+  if (req.user && req.user.role === 'admin') {
+    return next();
+  }
+  return res.status(403).json({ error: 'Unauthorized – Admin access only' });
+}
+
+// STEP 4: Create a backend route to serve Marketing Intelligence data
+// File: server/routes/admin.ts
+router.get('/admin/marketing-insights', isAdmin, async (req, res) => {
+  const users = await prisma.user.findMany({
+    select: {
+      email: true,
+      tier: true,
+      createdAt: true,
+      lastLogin: true,
+      status: true
+    }
+  });
+  res.json({ users });
+});
+
+// STEP 5: Create a new frontend admin view for marketing insights
+// File: client/src/pages/AdminMarketingInsights.tsx
+// Use fetch(`/api/admin/marketing-insights`) to show a table of user data:
+// Columns: Email | Tier | Status | Signup Date | Last Login
+
+// STEP 6: Add navigation tab to AdminDashboard if current user is admin
+// File: client/src/components/AdminDashboard.tsx
+if (currentUser.role === 'admin') {
+  tabs.push({ name: "Marketing Intelligence", path: "/admin/marketing-insights" });
+}
+
+// STEP 7: Test the flow before production
+// - Sign up with ADMIN_EMAIL from .env
+// - Confirm `role = admin` in DB
+// - Verify access to /admin/marketing-insights route and dashboard
+// - Log in with a non-admin user → should be blocked from this route
+
+// ✅ This completes a secure and production-ready admin access system with a Marketing Intelligence view for OnyxHooks & More™.
+Let me know if you'd like the React table UI snippet, or a seed.sql or prisma.seed.ts to create fake user tiers (Free, Starter, Pro, Vault) for testing the insights dashboard.
+
+You're scaling like a machine, Boss.
