@@ -1,0 +1,209 @@
+{
+  "timestamp": "2025-07-08T01:36:00.276Z",
+  "summary": {
+    "totalTests": 18,
+    "passed": 12,
+    "failed": 6,
+    "errors": []
+  },
+  "testResults": [
+    {
+      "name": "Server Health Check",
+      "path": "/api/health",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 35,
+      "timestamp": "2025-07-08T01:36:00.283Z"
+    },
+    {
+      "name": "Seed Test Accounts",
+      "path": "/api/test/seed-accounts",
+      "method": "POST",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": false,
+      "error": "Invalid JSON response",
+      "responseTime": 30,
+      "timestamp": "2025-07-08T01:36:00.319Z"
+    },
+    {
+      "name": "Hook Generation API",
+      "path": "/api/hooks/generate",
+      "method": "POST",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": false,
+      "error": "Invalid JSON response",
+      "responseTime": 11,
+      "timestamp": "2025-07-08T01:36:00.350Z"
+    },
+    {
+      "name": "Quiz Scoring API",
+      "path": "/api/quiz/score",
+      "method": "POST",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": false,
+      "error": "Invalid JSON response",
+      "responseTime": 12,
+      "timestamp": "2025-07-08T01:36:00.362Z"
+    },
+    {
+      "name": "Stripe Test - Starter Tier",
+      "path": "/api/test/stripe-ping",
+      "method": "POST",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 2047,
+      "timestamp": "2025-07-08T01:36:00.375Z"
+    },
+    {
+      "name": "Stripe Test - Pro Tier",
+      "path": "/api/test/stripe-ping",
+      "method": "POST",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 1746,
+      "timestamp": "2025-07-08T01:36:02.422Z"
+    },
+    {
+      "name": "Stripe Test - Vault Tier",
+      "path": "/api/test/stripe-ping",
+      "method": "POST",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 1674,
+      "timestamp": "2025-07-08T01:36:04.168Z"
+    },
+    {
+      "name": "Protected Council API (No Auth)",
+      "path": "/api/council/analyze",
+      "method": "POST",
+      "expectedStatus": 401,
+      "actualStatus": 400,
+      "passed": false,
+      "error": null,
+      "responseTime": 2,
+      "timestamp": "2025-07-08T01:36:05.842Z"
+    },
+    {
+      "name": "Protected Vault Swipe Copy (No Auth)",
+      "path": "/api/swipe-copy/vault",
+      "method": "GET",
+      "expectedStatus": 401,
+      "actualStatus": 200,
+      "passed": false,
+      "error": null,
+      "responseTime": 5,
+      "timestamp": "2025-07-08T01:36:05.844Z"
+    },
+    {
+      "name": "Protected Admin Analytics (No Auth)",
+      "path": "/api/admin/marketing-insights",
+      "method": "GET",
+      "expectedStatus": 401,
+      "actualStatus": 200,
+      "passed": false,
+      "error": null,
+      "responseTime": 604,
+      "timestamp": "2025-07-08T01:36:05.850Z"
+    },
+    {
+      "name": "Landing Page",
+      "path": "/",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 5,
+      "timestamp": "2025-07-08T01:36:06.455Z"
+    },
+    {
+      "name": "Login Page",
+      "path": "/login",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 7,
+      "timestamp": "2025-07-08T01:36:06.460Z"
+    },
+    {
+      "name": "Signup Page",
+      "path": "/signup",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 8,
+      "timestamp": "2025-07-08T01:36:06.468Z"
+    },
+    {
+      "name": "FAQ Page",
+      "path": "/faq",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 7,
+      "timestamp": "2025-07-08T01:36:06.476Z"
+    },
+    {
+      "name": "Privacy Page",
+      "path": "/privacy",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 7,
+      "timestamp": "2025-07-08T01:36:06.483Z"
+    },
+    {
+      "name": "Terms Page",
+      "path": "/terms",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 12,
+      "timestamp": "2025-07-08T01:36:06.490Z"
+    },
+    {
+      "name": "Pricing Page",
+      "path": "/pricing",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 7,
+      "timestamp": "2025-07-08T01:36:06.502Z"
+    },
+    {
+      "name": "Support Page",
+      "path": "/support",
+      "method": "GET",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "passed": true,
+      "error": null,
+      "responseTime": 9,
+      "timestamp": "2025-07-08T01:36:06.510Z"
+    }
+  ]
+}

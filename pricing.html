@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnyxHooks & More™ - Pricing Plans | Onyx & Pearls Management, Inc.</title>
+    <meta name="description" content="Choose your OnyxHooks & More™ subscription plan. Free tier, Starter ($47/mo), Pro ($197/mo), and Vault ($5,000/year) plans available with AI-powered hook generation.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        @media (max-width: 1200px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff6b35;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .card-header {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .free .card-header { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .starter .card-header { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .pro .card-header { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .vault .card-header { background: linear-gradient(135deg, #a8edea, #fed6e3); color: #333; }
+        
+        .tier-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tier-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tier-billing {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .free .cta-button { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .starter .cta-button { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .pro .cta-button { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .vault .cta-button { background: linear-gradient(135deg, #ffecd2, #fcb69f); color: #333; }
+        
+        .policy-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .policy-section h3 {
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .policy-section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        .footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer a {
+            color: #4facfe;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .tier-price {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>OnyxHooks & More™ Pricing</h1>
+            <p>Choose the perfect plan for your content creation needs</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="pricing-grid">
+            <!-- Free Tier -->
+            <div class="pricing-card free">
+                <div class="card-header">
+                    <div class="tier-name">Free</div>
+                    <div class="tier-price">$0</div>
+                    <div class="tier-billing">Forever</div>
+                </div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li>2 hooks per month</li>
+                        <li>7-day NOS Challenge trial</li>
+                        <li>Basic AI-powered content</li>
+                        <li>Community support</li>
+                        <li>Explore AI tools</li>
+                    </ul>
+                    <a href="https://app.onyxpearls.com/signup" class="cta-button">Get Started Free</a>
+                </div>
+            </div>
+
+            <!-- Starter Tier -->
+            <div class="pricing-card starter">
+                <div class="popular-badge">Most Popular</div>
+                <div class="card-header">
+                    <div class="tier-name">Starter</div>
+                    <div class="tier-price">$47</div>
+                    <div class="tier-billing">per month</div>
+                </div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li>25 hooks per month</li>
+                        <li>Branding tools</li>
+                        <li>NOS Challenge entry</li>
+                        <li>Email support</li>
+                        <li>Export capabilities</li>
+                        <li>Premium templates</li>
+                    </ul>
+                    <a href="https://app.onyxpearls.com/subscribe?plan=starter" class="cta-button">Start Creating</a>
+                </div>
+            </div>
+
+            <!-- Pro Tier -->
+            <div class="pricing-card pro">
+                <div class="card-header">
+                    <div class="tier-name">Pro</div>
+                    <div class="tier-price">$197</div>
+                    <div class="tier-billing">per month</div>
+                </div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li>Unlimited hooks</li>
+                        <li>Pro Tools access</li>
+                        <li>Leaderboard visibility</li>
+                        <li>Advanced analytics</li>
+                        <li>Priority support</li>
+                        <li>Agency features</li>
+                        <li>Custom branding</li>
+                    </ul>
+                    <a href="https://app.onyxpearls.com/subscribe?plan=pro" class="cta-button">Go Professional</a>
+                </div>
+            </div>
+
+            <!-- Vault Tier -->
+            <div class="pricing-card vault">
+                <div class="card-header">
+                    <div class="tier-name">Vault</div>
+                    <div class="tier-price">$5,000</div>
+                    <div class="tier-billing">per year</div>
+                </div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li>Everything from Pro</li>
+                        <li>Swipe copy vault</li>
+                        <li>Exclusive AI tools</li>
+                        <li>100 NOS Challenge runs</li>
+                        <li>Elite growth hacking</li>
+                        <li>High-conversion pros access</li>
+                        <li>White-glove support</li>
+                        <li>Monthly strategy calls</li>
+                    </ul>
+                    <a href="https://app.onyxpearls.com/subscribe?plan=vault" class="cta-button">Join Elite</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="policy-section">
+            <h3>Refund & Billing Policy</h3>
+            <p>By signing up for any subscription tier, you agree to automatic renewals based on the recurring billing cycle (monthly or annual, depending on the tier). All Starter Tier and Pro Tier subscriptions are billed at the beginning of each monthly cycle. All Vault Tier subscriptions are billed at the beginning of each yearly cycle.</p>
+            
+            <p>Customers can cancel at any time from their account dashboard. <strong>Refunds are only provided for billing errors or duplicate charges.</strong></p>
+            
+            <p>We encourage new users to try our Free Tier to evaluate the platform before upgrading. Vault Tier subscriptions are annual commitments with specific terms outlined during checkout.</p>
+            
+            <p>Please refer to our <a href="https://onyxpearls.com/terms.html" style="color: #1e3c72;">Terms and Conditions</a> for full details.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2025 Onyx & Pearls Management, Inc. All rights reserved.</p>
+            <p>
+                <a href="https://onyxpearls.com/terms.html">Terms & Conditions</a> | 
+                <a href="https://onyxpearls.com/privacy.html">Privacy Policy</a> | 
+                <a href="mailto:support@onyxnpearls.com">support@onyxnpearls.com</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

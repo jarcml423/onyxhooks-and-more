@@ -1,0 +1,31 @@
+Test_ID,Category,Test_Name,Expected_Result,Actual_Result,Status,Severity,Defect_ID,Notes
+REG-001,Authentication,Free User Login,Allow login to free dashboard,Login successful but can access premium features,FAIL,Critical,DEF-001,Authentication bypass vulnerability
+REG-002,Authentication,Starter User Login,Allow login to starter dashboard,Need to verify with fixed auth,PENDING,High,,"Blocked by authentication issues"
+REG-003,Authentication,Pro User Login,Allow login to pro dashboard,Need to verify with fixed auth,PENDING,High,,"Blocked by authentication issues"
+REG-004,Authentication,Vault User Login,Allow login to vault dashboard,Need to verify with fixed auth,PENDING,High,,"Blocked by authentication issues"
+REG-005,Authorization,Free User Vault Access,Deny access with 401,Returns 200 with data,FAIL,Critical,DEF-002,Vault endpoint not protected
+REG-006,Authorization,Free User Admin Access,Deny access with 401,Returns 200 with data,FAIL,Critical,DEF-003,Admin endpoint not protected
+REG-007,Authorization,Free User Council Access,Deny access with 401,Returns 400 instead of 401,FAIL,Critical,DEF-004,Council endpoint not properly protected
+REG-008,API_Endpoints,Hook Generation API,Return valid JSON with hooks,Returns 200 but validation issues,PARTIAL,Medium,DEF-005,API response format needs validation
+REG-009,API_Endpoints,Quiz Scoring API,Return valid JSON with score,Returns 200 but validation issues,PARTIAL,Medium,DEF-006,API response format needs validation
+REG-010,Business_Logic,Stripe Starter Integration,Create starter subscription,Subscription created successfully,PASS,None,,Stripe integration working
+REG-011,Business_Logic,Stripe Pro Integration,Create pro subscription,Subscription created successfully,PASS,None,,Stripe integration working
+REG-012,Business_Logic,Stripe Vault Integration,Create vault subscription,Subscription created successfully,PASS,None,,Stripe integration working
+REG-013,Infrastructure,Landing Page Load,Load successfully with 200,Loads successfully,PASS,None,,Infrastructure operational
+REG-014,Infrastructure,Login Page Load,Load login form,Loads successfully,PASS,None,,Frontend operational
+REG-015,Infrastructure,Server Health Check,Return 200 OK,Returns 200 OK,PASS,None,,Backend operational
+REG-016,Data_Integrity,Test Account Seeding,Create test accounts successfully,Accounts created but response format issues,PARTIAL,Medium,DEF-007,Response format inconsistency
+REG-017,Security,HTTPS Enforcement,Force HTTPS connections,Need to verify in production,PENDING,High,,"Production security requirement"
+REG-018,Security,Session Management,Maintain secure sessions,Need to test with proper auth,PENDING,High,,"Blocked by authentication fixes"
+REG-019,Security,Input Validation,Prevent malicious inputs,Need comprehensive validation testing,PENDING,Medium,,"Requires security audit"
+REG-020,Security,SQL Injection Protection,Block SQL injection attempts,Database queries use parameterized statements,PASS,None,,Using Drizzle ORM protection
+REG-021,Performance,Page Load Times,Load pages under 3 seconds,All tested pages load quickly,PASS,None,,Performance acceptable
+REG-022,Performance,API Response Times,Respond under 1 second,API responses 1-7ms range,PASS,None,,API performance excellent
+REG-023,UI_UX,Responsive Design,Work on mobile and desktop,Need browser testing,PENDING,Low,,"Requires visual validation"
+REG-024,UI_UX,Form Validation,Show validation errors,Need form testing,PENDING,Medium,,"Requires user interaction testing"
+REG-025,Integration,Email System,Send emails successfully,Email service configured,PASS,None,,SendGrid integration operational
+REG-026,Integration,Database Connectivity,Connect to PostgreSQL,Database operational,PASS,None,,Database integration working
+REG-027,Integration,Payment Processing,Process payments via Stripe,Payment integration tested,PASS,None,,Stripe payments functional
+REG-028,Compliance,GDPR Compliance,Handle data privacy correctly,Privacy policy and unsubscribe system,PASS,None,,Compliance systems in place
+REG-029,Compliance,Terms of Service,Display and enforce ToS,Terms page and acceptance flow,PASS,None,,Legal compliance operational
+REG-030,Monitoring,Error Logging,Log errors appropriately,Error handling implemented,PASS,None,,Logging and monitoring active

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Stripe Secret Key</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 50px auto; padding: 20px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; font-family: monospace; box-sizing: border-box; }
+        button { background: #7c3aed; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; }
+        .result { margin-top: 20px; padding: 15px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h2>🔐 Update Stripe Secret Key</h2>
+    <p>Paste your production Stripe secret key below:</p>
+    
+    <input type="password" id="secretKey" placeholder="Enter your secret key...">
+    <label style="font-size: 12px; color: #666; margin-top: 5px; display: block;">
+      <input type="checkbox" id="showKey" onchange="toggleKeyVisibility()" style="margin-right: 5px;">
+      Show key
+    </label>
+    <br>
+    <button onclick="updateKey()">Update Secret Key</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function toggleKeyVisibility() {
+            const keyInput = document.getElementById('secretKey');
+            const checkbox = document.getElementById('showKey');
+            keyInput.type = checkbox.checked ? 'text' : 'password';
+        }
+        
+        function updateKey() {
+            const key = document.getElementById('secretKey').value.trim();
+            const result = document.getElementById('result');
+            
+            if (!key.startsWith('sk_') || key.length < 50) {
+                result.className = 'result error';
+                result.innerHTML = '❌ Invalid format. Key should start with "sk_" and be at least 50 characters.';
+                return;
+            }
+            
+            fetch('/api/admin/update-stripe-secret', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ secretKey: key })
+            })
+            .then(response => response.ok ? response.json() : response.text().then(text => Promise.reject(text)))
+            .then(data => {
+                result.className = 'result success';
+                result.innerHTML = `
+                    ✅ Key validated successfully!<br><br>
+                    <strong>Next step:</strong> Update your Replit environment variable:<br>
+                    <code>STRIPE_SECRET_KEY = ${key.substring(0, 10)}...</code><br><br>
+                    Go to: Replit → Tools → Secrets → Find STRIPE_SECRET_KEY → Update value → Save
+                `;
+                document.getElementById('secretKey').value = '';
+            })
+            .catch(error => {
+                result.className = 'result error';
+                result.innerHTML = `❌ Error: ${error}`;
+            });
+        }
+    </script>
+</body>
+</html>

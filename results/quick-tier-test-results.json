@@ -1,0 +1,107 @@
+{
+  "timestamp": "2025-07-08T15:19:41.973Z",
+  "environment": "Replit Development (No Browser)",
+  "totalTests": 11,
+  "passed": 11,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "Server Health Check",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:42.003Z",
+      "statusCode": 200,
+      "severity": "none"
+    },
+    {
+      "name": "Landing Page Access",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:42.014Z",
+      "statusCode": 200
+    },
+    {
+      "name": "Login Page Access",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:42.022Z",
+      "statusCode": 200
+    },
+    {
+      "name": "Vault Endpoint Protection",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:42.026Z",
+      "statusCode": 401,
+      "expected": "401 or 403",
+      "severity": "none",
+      "impact": null,
+      "error": null
+    },
+    {
+      "name": "Admin Endpoint Protection",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:42.029Z",
+      "statusCode": 401,
+      "expected": "401 or 403",
+      "severity": "none",
+      "impact": null,
+      "error": null
+    },
+    {
+      "name": "Council Endpoint Protection",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:42.032Z",
+      "statusCode": 401,
+      "expected": "401 or 403",
+      "severity": "none",
+      "impact": null,
+      "error": null
+    },
+    {
+      "name": "Hook Generation API",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:42.035Z",
+      "statusCode": 200,
+      "isJson": true,
+      "hasHooks": "Yes",
+      "error": null
+    },
+    {
+      "name": "Quiz Scoring API",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:42.037Z",
+      "statusCode": 200,
+      "isJson": true,
+      "hasScore": "Yes",
+      "error": null
+    },
+    {
+      "name": "Stripe Starter Tier Integration",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:44.030Z",
+      "statusCode": 200,
+      "isJson": true,
+      "success": "Yes",
+      "tier": "starter",
+      "error": null
+    },
+    {
+      "name": "Stripe Pro Tier Integration",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:45.949Z",
+      "statusCode": 200,
+      "isJson": true,
+      "success": "Yes",
+      "tier": "pro",
+      "error": null
+    },
+    {
+      "name": "Stripe Vault Tier Integration",
+      "passed": true,
+      "timestamp": "2025-07-08T15:19:47.931Z",
+      "statusCode": 200,
+      "isJson": true,
+      "success": "Yes",
+      "tier": "vault",
+      "error": null
+    }
+  ],
+  "criticalIssues": []
+}

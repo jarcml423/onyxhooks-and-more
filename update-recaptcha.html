@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update reCAPTCHA Site Key - OnyxHooks & More™</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #7c3aed;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: monospace;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #7c3aed;
+        }
+        button {
+            background: #7c3aed;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #6d28d9;
+        }
+        .info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            color: #1e40af;
+        }
+        .success {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+            color: #166534;
+            display: none;
+        }
+        .error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+            color: #dc2626;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ Update reCAPTCHA Site Key</h1>
+        
+        <div class="info">
+            <strong>Instructions:</strong> Paste your new reCAPTCHA Site Key below. This should be the key you just created for onyxnpearls.com that starts with "6L".
+        </div>
+
+        <form id="updateForm">
+            <div class="form-group">
+                <label for="siteKey">New reCAPTCHA Site Key:</label>
+                <input 
+                    type="text" 
+                    id="siteKey" 
+                    name="siteKey" 
+                    placeholder="6LcCEmcrAAAAAPLZtHYR4blUyFeUPo7Ao8dmoZls
+                    required
+                >
+            </div>
+            
+            <button type="submit">Update Site Key</button>
+        </form>
+
+        <div id="success" class="success">
+            ✅ reCAPTCHA Site Key updated successfully! Your platform will now use the new production key.
+        </div>
+
+        <div id="error" class="error">
+            ❌ Error updating site key. Please check the key format and try again.
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('updateForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const siteKey = document.getElementById('siteKey').value.trim();
+            const successDiv = document.getElementById('success');
+            const errorDiv = document.getElementById('error');
+            
+            // Hide previous messages
+            successDiv.style.display = 'none';
+            errorDiv.style.display = 'none';
+            
+            // Validate format
+            if (!siteKey.startsWith('6L') || siteKey.length < 40) {
+                errorDiv.textContent = '❌ Invalid site key format. Should start with "6L" and be at least 40 characters.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/admin/update-recaptcha-key', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ siteKey })
+                });
+                
+                if (response.ok) {
+                    successDiv.style.display = 'block';
+                    document.getElementById('siteKey').value = '';
+                    
+                    // Reload page after 2 seconds to reflect changes
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    const error = await response.text();
+                    errorDiv.textContent = `❌ Error: ${error}`;
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = `❌ Network error: ${error.message}`;
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

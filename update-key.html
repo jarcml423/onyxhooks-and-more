@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update reCAPTCHA Key</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 50px auto; padding: 20px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; font-family: monospace; }
+        button { background: #7c3aed; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; }
+        .result { margin-top: 20px; padding: 15px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h2>🛡️ Update reCAPTCHA Site Key</h2>
+    <p>Paste your new production site key below:</p>
+    
+    <input type="text" id="siteKey" placeholder="6LxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxAA" style="width: 100%;">
+    <br>
+    <button onclick="updateKey()">Update Key</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function updateKey() {
+            const key = document.getElementById('siteKey').value.trim();
+            const result = document.getElementById('result');
+            
+            if (!key.startsWith('6L') || key.length < 40) {
+                result.className = 'result error';
+                result.innerHTML = '❌ Invalid format. Key should start with "6L" and be at least 40 characters.';
+                return;
+            }
+            
+            fetch('/api/admin/update-recaptcha-key', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ siteKey: key })
+            })
+            .then(response => response.ok ? response.json() : response.text().then(text => Promise.reject(text)))
+            .then(data => {
+                result.className = 'result success';
+                result.innerHTML = `
+                    ✅ Key validated successfully!<br><br>
+                    <strong>Next step:</strong> Update your Replit environment variable:<br>
+                    <code>VITE_RECAPTCHA_SITE_KEY = ${key}</code><br><br>
+                    Go to: Replit → Tools → Secrets → Find VITE_RECAPTCHA_SITE_KEY → Update value → Save
+                `;
+                document.getElementById('siteKey').value = '';
+            })
+            .catch(error => {
+                result.className = 'result error';
+                result.innerHTML = `❌ Error: ${error}`;
+            });
+        }
+    </script>
+</body>
+</html>

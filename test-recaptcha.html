@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCAPTCHA Test - OnyxHooks & More™</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #3730a3 100%);
+            color: white;
+            border-radius: 12px;
+        }
+        .test-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+        .success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .info {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        button {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #6d28d9;
+        }
+        .recaptcha-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🛡️ reCAPTCHA Production Test</h1>
+        <p><strong>Domain:</strong> <span id="domain"></span></p>
+        <p><strong>Environment:</strong> Production</p>
+        
+        <div id="status" class="result info">
+            🔄 Testing reCAPTCHA configuration...
+        </div>
+        
+        <div class="recaptcha-container">
+            <div id="recaptcha-widget"></div>
+        </div>
+        
+        <button onclick="testRecaptcha()">Test reCAPTCHA</button>
+        <button onclick="resetTest()">Reset Test</button>
+        
+        <div id="detailed-logs" class="result info" style="display: none;">
+            <h3>Detailed Logs:</h3>
+            <pre id="logs"></pre>
+        </div>
+    </div>
+
+    <script>
+        // Set current domain
+        document.getElementById('domain').textContent = window.location.hostname;
+        
+        let widgetId = null;
+        const logs = [];
+        
+        function log(message) {
+            logs.push(`[${new Date().toISOString()}] ${message}`);
+            document.getElementById('logs').textContent = logs.join('\n');
+            console.log(message);
+        }
+        
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `result ${type}`;
+            statusDiv.innerHTML = message;
+        }
+        
+        function testRecaptcha() {
+            document.getElementById('detailed-logs').style.display = 'block';
+            log('Starting reCAPTCHA test...');
+            
+            // Fetch site key from server
+            fetch('/api/admin/recaptcha/status')
+                .then(response => response.json())
+                .then(data => {
+                    log(`Server response: ${JSON.stringify(data)}`);
+                    
+                    if (!data.success) {
+                        showStatus('❌ Server configuration error', 'error');
+                        return;
+                    }
+                    
+                    if (!data.configured) {
+                        showStatus('❌ reCAPTCHA not configured on server', 'error');
+                        return;
+                    }
+                    
+                    // Get the full site key
+                    const siteKey = data.fullSiteKey;
+                    log(`Site key: ${siteKey}`);
+                    
+                    if (!siteKey || siteKey === 'Not configured') {
+                        showStatus('❌ Site key not available', 'error');
+                        return;
+                    }
+                    
+                    // Test reCAPTCHA rendering
+                    if (window.grecaptcha) {
+                        log('grecaptcha loaded, attempting to render...');
+                        
+                        try {
+                            window.grecaptcha.ready(() => {
+                                log('grecaptcha ready callback executed');
+                                
+                                widgetId = window.grecaptcha.render('recaptcha-widget', {
+                                    sitekey: siteKey,
+                                    callback: function(response) {
+                                        log('reCAPTCHA solved successfully!');
+                                        showStatus('✅ reCAPTCHA working correctly!', 'success');
+                                        
+                                        // Test verification with backend
+                                        fetch('/api/verify-recaptcha', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({ recaptchaResponse: response })
+                                        })
+                                        .then(res => res.json())
+                                        .then(result => {
+                                            log(`Backend verification: ${JSON.stringify(result)}`);
+                                            if (result.success) {
+                                                showStatus('✅ reCAPTCHA fully functional!', 'success');
+                                            } else {
+                                                showStatus('⚠️ Frontend working, backend verification failed', 'error');
+                                            }
+                                        })
+                                        .catch(err => {
+                                            log(`Backend verification error: ${err.message}`);
+                                            showStatus('⚠️ Frontend working, backend verification failed', 'error');
+                                        });
+                                    },
+                                    'error-callback': function(error) {
+                                        log(`reCAPTCHA error: ${error}`);
+                                        showStatus('❌ reCAPTCHA error - likely domain mismatch', 'error');
+                                    },
+                                    'expired-callback': function() {
+                                        log('reCAPTCHA expired');
+                                        showStatus('⏰ reCAPTCHA expired', 'info');
+                                    }
+                                });
+                                
+                                log(`reCAPTCHA widget rendered with ID: ${widgetId}`);
+                                showStatus('✅ reCAPTCHA loaded - please complete the challenge', 'success');
+                            });
+                        } catch (error) {
+                            log(`reCAPTCHA render error: ${error.message}`);
+                            showStatus('❌ reCAPTCHA render failed', 'error');
+                        }
+                    } else {
+                        log('grecaptcha not loaded');
+                        showStatus('❌ reCAPTCHA library not loaded', 'error');
+                    }
+                })
+                .catch(error => {
+                    log(`Fetch error: ${error.message}`);
+                    showStatus('❌ Failed to fetch server configuration', 'error');
+                });
+        }
+        
+        function resetTest() {
+            if (widgetId !== null && window.grecaptcha) {
+                window.grecaptcha.reset(widgetId);
+                widgetId = null;
+            }
+            document.getElementById('recaptcha-widget').innerHTML = '';
+            document.getElementById('detailed-logs').style.display = 'none';
+            logs.length = 0;
+            showStatus('🔄 Ready for testing', 'info');
+        }
+        
+        // Auto-run test on page load
+        window.addEventListener('load', function() {
+            setTimeout(testRecaptcha, 1000);
+        });
+    </script>
+</body>
+</html>

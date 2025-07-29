@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCAPTCHA Test - Development Environment</title>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Le2LXsrAAAAADFvJWtAEedwkUcwzePUQryZ-_9i" async defer></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #7c3aed;
+            margin-bottom: 20px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            background: #7c3aed;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #6d28d9;
+        }
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+        .status {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 reCAPTCHA Development Testing</h1>
+        
+        <div id="status" class="status info">
+            <strong>Status:</strong> Loading reCAPTCHA configuration...
+        </div>
+
+        <div class="test-section">
+            <h3>Test 1: reCAPTCHA Status Check</h3>
+            <button onclick="checkStatus()">Check reCAPTCHA Status</button>
+            <div id="statusResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 2: Invisible reCAPTCHA Login Test</h3>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="test@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" value="password123" required>
+                </div>
+                <button type="submit" id="loginBtn">Test Login with reCAPTCHA</button>
+            </form>
+            <div id="loginResult" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 3: Development Bypass Test</h3>
+            <button onclick="testDevBypass()">Test Development Bypass</button>
+            <div id="bypassResult" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const SITE_KEY = '6Le2LXsrAAAAADFvJWtAEedwkUcwzePUQryZ-_9i';
+        
+        // Check if we're in development (localhost or .replit.app)
+        const isDevelopment = window.location.hostname === 'localhost' || 
+                             window.location.hostname.includes('.replit.app');
+
+        document.getElementById('status').innerHTML = `
+            <strong>Environment:</strong> ${isDevelopment ? 'Development' : 'Production'}<br>
+            <strong>Domain:</strong> ${window.location.hostname}<br>
+            <strong>Site Key:</strong> ${SITE_KEY}<br>
+            <strong>reCAPTCHA:</strong> ${typeof grecaptcha !== 'undefined' ? 'Loaded' : 'Loading...'}
+        `;
+
+        async function checkStatus() {
+            const resultDiv = document.getElementById('statusResult');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result info';
+            resultDiv.textContent = 'Checking status...';
+
+            try {
+                const response = await fetch('/api/admin/recaptcha/status');
+                const data = await response.json();
+                
+                resultDiv.className = 'result success';
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Error checking status: ' + error.message;
+            }
+        }
+
+        async function testDevBypass() {
+            const resultDiv = document.getElementById('bypassResult');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result info';
+            resultDiv.textContent = 'Testing development bypass...';
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'test@example.com',
+                        password: 'password123',
+                        captchaToken: 'dev-bypass-token'
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `SUCCESS: Development bypass working\n\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `ERROR: ${data.message}\n\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'Network error: ' + error.message;
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const resultDiv = document.getElementById('loginResult');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result info';
+            resultDiv.textContent = 'Executing reCAPTCHA...';
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Processing...';
+
+            try {
+                if (typeof grecaptcha === 'undefined') {
+                    throw new Error('reCAPTCHA not loaded');
+                }
+
+                // Execute invisible reCAPTCHA
+                const token = await grecaptcha.execute(SITE_KEY, {action: 'login'});
+                
+                resultDiv.textContent = `reCAPTCHA token generated: ${token.substring(0, 50)}...\n\nSending to server...`;
+
+                // Test with real reCAPTCHA token
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value,
+                        captchaToken: token
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `SUCCESS: Real reCAPTCHA verification passed!\n\nToken: ${token.substring(0, 50)}...\n\nServer Response:\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `ERROR: ${data.message}\n\nToken: ${token.substring(0, 50)}...\n\nServer Response:\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = 'reCAPTCHA execution failed: ' + error.message;
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Test Login with reCAPTCHA';
+            }
+        });
+
+        // Auto-check status on page load
+        window.addEventListener('load', () => {
+            setTimeout(checkStatus, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+{
+  "testAccounts": [
+    {
+      "tier": "free",
+      "email": "test_free@onyxnpearls.com",
+      "password": "Test1234!",
+      "username": "TestFree",
+      "expectedAccess": {
+        "routes": [
+          { "path": "/", "status": 200, "description": "Landing page" },
+          { "path": "/login", "status": 200, "description": "Login page" },
+          { "path": "/signup", "status": 200, "description": "Signup page" },
+          { "path": "/hooks", "status": 200, "description": "Free hook generator" }
+        ],
+        "restrictedRoutes": [
+          { "path": "/starter", "status": 403, "description": "Starter dashboard - should redirect" },
+          { "path": "/pro", "status": 403, "description": "Pro dashboard - should redirect" },
+          { "path": "/vault", "status": 403, "description": "Vault dashboard - should redirect" },
+          { "path": "/admin", "status": 403, "description": "Admin dashboard - should redirect" }
+        ],
+        "apiEndpoints": [
+          { "path": "/api/hooks/generate", "method": "POST", "status": 200, "description": "Hook generation (with limits)" },
+          { "path": "/api/quiz/score", "method": "POST", "status": 200, "description": "Quiz scoring" }
+        ],
+        "restrictedApiEndpoints": [
+          { "path": "/api/council/analyze", "method": "POST", "status": 403, "description": "AI Council - Pro+ only" },
+          { "path": "/api/swipe-copy/vault", "method": "GET", "status": 403, "description": "Vault swipe copy" }
+        ],
+        "features": [
+          { "selector": "[data-testid='free-hook-generator']", "description": "Free tier hook generator" },
+          { "selector": "[data-testid='upgrade-to-starter']", "description": "Upgrade to Starter CTA" }
+        ]
+      }
+    },
+    {
+      "tier": "starter",
+      "email": "test_starter@onyxnpearls.com", 
+      "password": "Test1234!",
+      "username": "TestStarter",
+      "expectedAccess": {
+        "routes": [
+          { "path": "/", "status": 200, "description": "Landing page" },
+          { "path": "/starter", "status": 200, "description": "Starter dashboard" },
+          { "path": "/hooks", "status": 200, "description": "Unlimited hook generator" }
+        ],
+        "restrictedRoutes": [
+          { "path": "/pro", "status": 403, "description": "Pro dashboard - should redirect" },
+          { "path": "/vault", "status": 403, "description": "Vault dashboard - should redirect" },
+          { "path": "/admin", "status": 403, "description": "Admin dashboard - should redirect" }
+        ],
+        "apiEndpoints": [
+          { "path": "/api/hooks/generate", "method": "POST", "status": 200, "description": "Unlimited hook generation" },
+          { "path": "/api/quiz/score", "method": "POST", "status": 200, "description": "Quiz scoring" }
+        ],
+        "restrictedApiEndpoints": [
+          { "path": "/api/council/analyze", "method": "POST", "status": 403, "description": "AI Council - Pro+ only" },
+          { "path": "/api/swipe-copy/vault", "method": "GET", "status": 403, "description": "Vault swipe copy" }
+        ],
+        "features": [
+          { "selector": "[data-testid='starter-dashboard']", "description": "Starter tier dashboard" },
+          { "selector": "[data-testid='unlimited-hooks']", "description": "Unlimited hook generation" },
+          { "selector": "[data-testid='upgrade-to-pro']", "description": "Upgrade to Pro CTA" }
+        ]
+      }
+    },
+    {
+      "tier": "pro", 
+      "email": "test_pro@onyxnpearls.com",
+      "password": "Test1234!",
+      "username": "TestPro",
+      "expectedAccess": {
+        "routes": [
+          { "path": "/", "status": 200, "description": "Landing page" },
+          { "path": "/starter", "status": 200, "description": "Starter features available" },
+          { "path": "/pro", "status": 200, "description": "Pro dashboard" },
+          { "path": "/hooks", "status": 200, "description": "Unlimited hook generator" }
+        ],
+        "restrictedRoutes": [
+          { "path": "/vault", "status": 403, "description": "Vault dashboard - should redirect" },
+          { "path": "/admin", "status": 403, "description": "Admin dashboard - should redirect" }
+        ],
+        "apiEndpoints": [
+          { "path": "/api/hooks/generate", "method": "POST", "status": 200, "description": "Unlimited hook generation" },
+          { "path": "/api/council/analyze", "method": "POST", "status": 200, "description": "AI Council analysis" },
+          { "path": "/api/quiz/score", "method": "POST", "status": 200, "description": "Quiz scoring" }
+        ],
+        "restrictedApiEndpoints": [
+          { "path": "/api/swipe-copy/vault", "method": "GET", "status": 403, "description": "Vault swipe copy" },
+          { "path": "/api/admin/marketing-insights", "method": "GET", "status": 403, "description": "Admin analytics" }
+        ],
+        "features": [
+          { "selector": "[data-testid='pro-dashboard']", "description": "Pro tier dashboard" },
+          { "selector": "[data-testid='ai-council']", "description": "AI Council feature" },
+          { "selector": "[data-testid='upgrade-to-vault']", "description": "Upgrade to Vault CTA" }
+        ]
+      }
+    },
+    {
+      "tier": "vault",
+      "email": "test_vault@onyxnpearls.com",
+      "password": "Test1234!", 
+      "username": "TestVault",
+      "expectedAccess": {
+        "routes": [
+          { "path": "/", "status": 200, "description": "Landing page" },
+          { "path": "/starter", "status": 200, "description": "Starter features available" },
+          { "path": "/pro", "status": 200, "description": "Pro features available" },
+          { "path": "/vault", "status": 200, "description": "Vault dashboard" }
+        ],
+        "restrictedRoutes": [
+          { "path": "/admin", "status": 403, "description": "Admin dashboard - requires admin role" }
+        ],
+        "apiEndpoints": [
+          { "path": "/api/hooks/generate", "method": "POST", "status": 200, "description": "Unlimited hook generation" },
+          { "path": "/api/council/analyze", "method": "POST", "status": 200, "description": "AI Council analysis" },
+          { "path": "/api/swipe-copy/vault", "method": "GET", "status": 200, "description": "Vault swipe copy" },
+          { "path": "/api/usage-analytics", "method": "GET", "status": 200, "description": "Usage analytics" }
+        ],
+        "restrictedApiEndpoints": [
+          { "path": "/api/admin/marketing-insights", "method": "GET", "status": 403, "description": "Admin analytics - requires admin role" }
+        ],
+        "features": [
+          { "selector": "[data-testid='vault-dashboard']", "description": "Vault tier dashboard" },
+          { "selector": "[data-testid='vault-swipe-copy']", "description": "Monthly swipe copy bank" },
+          { "selector": "[data-testid='usage-analytics']", "description": "Advanced usage analytics" },
+          { "selector": "[data-testid='campaign-builder']", "description": "Campaign builder tools" }
+        ]
+      }
+    }
+  ],
+  "globalTests": [
+    {
+      "name": "Landing Page Load",
+      "url": "/",
+      "expectedElements": [
+        { "selector": "h1", "description": "Main heading should be present" },
+        { "selector": "[data-testid='cta-button']", "description": "CTA button should be visible" }
+      ]
+    },
+    {
+      "name": "Login Functionality", 
+      "url": "/login",
+      "expectedElements": [
+        { "selector": "input[type='email']", "description": "Email input field" },
+        { "selector": "input[type='password']", "description": "Password input field" },
+        { "selector": "button[type='submit']", "description": "Login submit button" }
+      ]
+    }
+  ],
+  "testSettings": {
+    "baseUrl": "http://localhost:5000",
+    "timeout": 30000,
+    "retries": 3,
+    "headless": true,
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    }
+  }
+}

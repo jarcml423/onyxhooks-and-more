@@ -1,0 +1,133 @@
+{
+  "timestamp": "2025-07-08T01:58:30.325Z",
+  "environment": "development",
+  "summary": {
+    "totalTests": 13,
+    "passed": 7,
+    "failed": 6,
+    "blocked": 0
+  },
+  "categories": {
+    "Setup": {
+      "passed": 0,
+      "failed": 1,
+      "blocked": 0,
+      "total": 1
+    },
+    "Infrastructure": {
+      "passed": 4,
+      "failed": 0,
+      "blocked": 0,
+      "total": 4
+    },
+    "Security": {
+      "passed": 0,
+      "failed": 3,
+      "blocked": 0,
+      "total": 3
+    },
+    "API": {
+      "passed": 0,
+      "failed": 2,
+      "blocked": 0,
+      "total": 2
+    },
+    "Business Logic": {
+      "passed": 3,
+      "failed": 0,
+      "blocked": 0,
+      "total": 3
+    }
+  },
+  "defects": [
+    {
+      "id": "DEF-1751939910383",
+      "category": "Setup",
+      "name": "Seed Test Accounts",
+      "severity": "high",
+      "description": "Expected JSON response",
+      "path": "/api/test/seed-accounts",
+      "method": "POST",
+      "reproductionSteps": [
+        "1. Navigate to http://localhost:5000/",
+        "2. Send POST request",
+        "3. Include request body: {\n  \"accounts\": [\n    {\n      \"email\": \"test_free@onyxnpearls.com\",\n      \"role\": \"free\",\n      \"username\": \"TestFree\"\n    },\n    {\n      \"email\": \"test_starter@onyxnpearls.com\",\n      \"role\": \"starter\",\n      \"username\": \"TestStarter\"\n    },\n    {\n      \"email\": \"test_pro@onyxnpearls.com\",\n      \"role\": \"pro\",\n      \"username\": \"TestPro\"\n    },\n    {\n      \"email\": \"test_vault@onyxnpearls.com\",\n      \"role\": \"vault\",\n      \"username\": \"TestVault\"\n    }\n  ]\n}",
+        "4. Observe the response status and data"
+      ]
+    },
+    {
+      "id": "DEF-1751939910442",
+      "category": "Security",
+      "name": "Protected Council API (Unauthorized)",
+      "severity": "critical",
+      "description": "Endpoint not properly protected - allows unauthorized access",
+      "path": "/api/council/analyze",
+      "method": "POST",
+      "reproductionSteps": [
+        "1. Navigate to http://localhost:5000/",
+        "2. Send POST request",
+        "3. Include request body: {\n  \"content\": \"test hook\",\n  \"contentType\": \"hook\"\n}",
+        "4. Observe the response status and data"
+      ]
+    },
+    {
+      "id": "DEF-1751939910454",
+      "category": "Security",
+      "name": "Protected Vault Swipe Copy (Unauthorized)",
+      "severity": "critical",
+      "description": "Expected 401, got 200",
+      "path": "/api/swipe-copy/vault",
+      "method": "GET",
+      "reproductionSteps": [
+        "1. Navigate to http://localhost:5000/",
+        "2. Send GET request",
+        "4. Observe the response status and data"
+      ]
+    },
+    {
+      "id": "DEF-1751939911128",
+      "category": "Security",
+      "name": "Protected Admin Analytics (Unauthorized)",
+      "severity": "critical",
+      "description": "Expected 401, got 200",
+      "path": "/api/admin/marketing-insights",
+      "method": "GET",
+      "reproductionSteps": [
+        "1. Navigate to http://localhost:5000/",
+        "2. Send GET request",
+        "4. Observe the response status and data"
+      ]
+    },
+    {
+      "id": "DEF-1751939911135",
+      "category": "API",
+      "name": "Hook Generation",
+      "severity": "high",
+      "description": "Expected JSON response",
+      "path": "/api/hooks/generate",
+      "method": "POST",
+      "reproductionSteps": [
+        "1. Navigate to http://localhost:5000/",
+        "2. Send POST request",
+        "3. Include request body: {\n  \"niche\": \"fitness coaching\",\n  \"transformation\": \"lose 20 pounds\"\n}",
+        "4. Observe the response status and data"
+      ]
+    },
+    {
+      "id": "DEF-1751939911152",
+      "category": "API",
+      "name": "Quiz Scoring",
+      "severity": "high",
+      "description": "Expected JSON response",
+      "path": "/api/quiz/score",
+      "method": "POST",
+      "reproductionSteps": [
+        "1. Navigate to http://localhost:5000/",
+        "2. Send POST request",
+        "3. Include request body: {\n  \"answers\": [\n    3,\n    4,\n    3,\n    2,\n    4,\n    3\n  ]\n}",
+        "4. Observe the response status and data"
+      ]
+    }
+  ],
+  "recommendations": []
+}
