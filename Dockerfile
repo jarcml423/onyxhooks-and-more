@@ -1,5 +1,5 @@
 # Multi-stage build for production optimization
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
 
 # Set working directory
 WORKDIR /app
@@ -11,7 +11,7 @@ RUN apk add --no-cache python3 make g++
 COPY package*.json ./
 
 # Install ALL dependencies (including build tools)
-RUN npm ci --include=dev
+RUN npm install --include=dev
 
 # Copy source code
 COPY . .
@@ -23,7 +23,7 @@ RUN npm run build
 RUN ls -la dist/ && ls -la dist/public/
 
 # Production stage
-FROM node:20-alpine AS production
+FROM node:20-slim AS production
 
 # Set working directory
 WORKDIR /app
