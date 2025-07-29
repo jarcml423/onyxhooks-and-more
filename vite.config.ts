@@ -6,20 +6,26 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve("./client/src"),
-      "@shared": path.resolve("./shared"),
-      "@assets": path.resolve("./attached_assets"),
+      "@": path.resolve("client/src"),
+      "@shared": path.resolve("shared"),
+      "@assets": path.resolve("attached_assets"),
     },
   },
-  root: "./client",
+  root: "client",
   build: {
     outDir: "../dist/public",
     emptyOutDir: true,
+    sourcemap: false,
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
   server: {
     fs: {
       strict: false,
-      allow: [".."],
     },
   },
 });
