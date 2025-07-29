@@ -1,0 +1,109 @@
+Here's the full Replit-ready prompt to implement the Offer Strength Quiz, including:
+
+🧠 Quiz structure (6 questions)
+
+🧮 Council-style scoring logic
+
+🏆 Tier recommendation (Free, Pro, Vault)
+
+🎯 CTA copy personalized by the Lead Council
+
+✅ Replit Prompt: Full Offer Strength Quiz (with Scoring & Tier Recommendation)
+plaintext
+Copy
+Edit
+Build a fully functional Offer Strength Quiz for OfferForge AI.
+
+---
+
+🎯 GOAL: Let users self-assess their digital offer, get a strength score (0–100), and receive a personalized plan recommendation (Free, Pro, Vault) using Council-backed CTA copy.
+
+---
+
+✅ PAGE: `/quiz`  
+🔁 Component: `OfferQuiz.tsx`  
+💾 Scoring Logic: `offerScoring.ts`  
+🧠 Data store: Firebase (save email + quiz score + tier suggested)
+
+---
+
+📋 QUIZ QUESTIONS (Multiple Choice)
+Each answer maps to a point value (0–20).
+
+1. **What is the outcome your offer delivers?**  
+   - No clear outcome (0)  
+   - General improvement (5)  
+   - Tangible benefit (10)  
+   - Specific, measurable transformation (20)
+
+2. **How urgent is the problem your offer solves?**  
+   - It’s optional or “nice to have” (0)  
+   - Relevant, but not critical (5)  
+   - Frustrating for my audience (10)  
+   - Solves a pain that’s costly or painful to delay (20)
+
+3. **What’s your pricing strategy?**  
+   - Time-based or hourly (0)  
+   - Flat fee (5)  
+   - Value-based or outcome pricing (15)  
+   - High-ticket transformation w/ payment plan (20)
+
+4. **How dialed in is your niche?**  
+   - Very broad market (0)  
+   - Somewhat defined (5)  
+   - Clear persona or profession (10)  
+   - Hyper-specific niche w/ clear pain (20)
+
+5. **How premium is your positioning?**  
+   - I’m the cheap option (0)  
+   - I price competitively (5)  
+   - I frame myself as premium (10)  
+   - I lead with authority and transformation (20)
+
+6. **What’s your CTA or sales flow like today?**  
+   - I don’t have one (0)  
+   - I use a general contact form (5)  
+   - I have a landing page or booking link (10)  
+   - I use a compelling CTA with urgency/scarcity (20)
+
+---
+
+🧮 SCORING LOGIC (offerScoring.ts)
+- Score 0–39 → 🟢 **Free Plan Recommended**  
+- Score 40–74 → 🔵 **Pro Plan Recommended**  
+- Score 75–100 → 🟣 **Vault Plan Recommended**
+
+---
+
+💬 CTA OUTPUT (Council-Approved Messaging):
+
+**Free Plan (0–39 pts)**  
+> "You’ve got the spark — let’s shape it into a scalable offer. Start with Free to refine your foundation."  
+– *Alex & Sabri*
+
+**Pro Plan (40–74 pts)**  
+> "Strong start! Now let’s dial up ROI and credibility with tools built for real growth."  
+– *Gary & Maurice (Runway)*
+
+**Vault Plan (75–100 pts)**  
+> "You’re one shift away from domination. Vault unlocks the precision frameworks elite coaches use to win premium clients fast."  
+– *Mo Gawdat & Demis Hassabis*
+
+---
+
+🧠 SHOW FINAL SCORE:
+- Animate counter: “Offer Strength Score: 68/100”  
+- Below: “Recommended Plan: **Pro**”
+
+---
+
+📤 OPTIONAL:
+- Button: `See What You Get With Pro` (scrolls to pricing)
+- Button: `Try Again` → resets quiz
+- Save: score + email to Firebase
+
+---
+
+🛡 SECURITY:
+- Ensure reCAPTCHA is active on `/quiz`
+- Don’t allow score manipulation via URL or client-side tampering

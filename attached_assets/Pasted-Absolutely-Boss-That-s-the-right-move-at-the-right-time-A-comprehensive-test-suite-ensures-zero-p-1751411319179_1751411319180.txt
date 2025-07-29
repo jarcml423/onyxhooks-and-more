@@ -1,0 +1,112 @@
+Absolutely, Boss. That’s the right move at the right time. A comprehensive test suite ensures zero privilege drift, hardened enforcement, and reliable scale. Here's the complete Replit-ready testing strategy:
+
+✅ Testing Suite Blueprint for OfferForge Access System
+🔧 Frameworks
+Use:
+
+Jest for unit/integration tests
+
+React Testing Library for UI behavior
+
+Firebase Emulator Suite for local access + rule enforcement
+
+Cypress (optional) for E2E UI click-through tests
+
+🧪 Test Matrix: Access Enforcement Logic
+Scenario	User Tier	subscriptionStatus	accessGranted	Expected Access
+Free	free	canceled	false	❌ Denied
+Builder	starter	active	false	❌ Denied
+Pro	pro	past_due	true	❌ Denied
+Vault	vault	active	true	✅ Allowed
+Admin	vault	active	true + admin: true	✅ Admin Access
+
+🧠 Key Unit Tests (__tests__/authAccess.test.js)
+js
+Copy
+Edit
+import { canAccessPremium } from '../hooks/useSubscriptionStatus';
+
+describe("Access Control Logic", () => {
+  it("denies access to inactive free users", () => {
+    expect(canAccessPremium({
+      tier: "free",
+      subscriptionStatus: "canceled",
+      accessGranted: false
+    })).toBe(false);
+  });
+
+  it("denies access if subscription is past due", () => {
+    expect(canAccessPremium({
+      tier: "pro",
+      subscriptionStatus: "past_due",
+      accessGranted: true
+    })).toBe(false);
+  });
+
+  it("grants access to active Vault user", () => {
+    expect(canAccessPremium({
+      tier: "vault",
+      subscriptionStatus: "active",
+      accessGranted: true
+    })).toBe(true);
+  });
+});
+🧰 Firebase Rule Testing (Emulator)
+Use this to simulate Firestore rules locally:
+
+bash
+Copy
+Edit
+firebase emulators:start --only firestore
+Add .test.rules like:
+
+plaintext
+Copy
+Edit
+allow read: if request.auth != null && 
+  get(/databases/$(database)/documents/Users/$(request.auth.uid)).data.accessGranted == true;
+Then run test scripts using:
+
+bash
+Copy
+Edit
+firebase emulators:exec "./scripts/runRuleTests.sh"
+👁️ Manual Verification Tools
+Create a /debug-access route in your dev build that:
+
+Shows current user's Firestore flags: tier, subscriptionStatus, accessGranted
+
+Displays calculated access state
+
+Has button to simulate tier switch (dev only)
+
+Example output:
+
+jsx
+Copy
+Edit
+User: jarviscamp@offerforge.com  
+Tier: vault  
+Access Status: ✅ Premium Access  
+Subscription: active  
+🛡️ Future-Proof Testing Add-ons
+Audit Log: Log any denied attempt to Firebase Logs/DeniedAccess/{uid}
+
+Stripe Hook Tests: Simulate invoice.payment_failed and ensure Firestore is updated & access is revoked
+
+js
+Copy
+Edit
+test("Stripe webhook cancels access on failure", async () => {
+  const before = await db.doc(`/Users/abc123`).get();
+  simulateStripeWebhook("invoice.payment_failed", { client_reference_id: "abc123" });
+  const after = await db.doc(`/Users/abc123`).get();
+  expect(after.data().accessGranted).toBe(false);
+});
+💥 Final Call to Action
+Once these tests are locked in:
+
+✅ Zero unauthorized access
+✅ Confidence for scale
+✅ Audit-ready posture
+✅ Operator-grade security built into the Forge

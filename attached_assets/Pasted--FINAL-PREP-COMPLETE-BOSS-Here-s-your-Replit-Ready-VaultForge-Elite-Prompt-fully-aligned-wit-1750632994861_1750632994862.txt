@@ -1,0 +1,106 @@
+🔥 FINAL PREP COMPLETE, BOSS 🔥
+Here’s your Replit-Ready VaultForge Elite Prompt – fully aligned with all UX, product logic, AI agent feedback, dashboard upgrades, and enforced excellence systems.
+
+🟦 FINAL SUBMISSION: VaultForge Elite Tier UX & System Logic
+🔒 VaultForge Elite Enforcement Prompt for Replit
+Overview:
+Ensure that all $5,000 Elite Access users experience Apple-level polish, AI-guided excellence, and are prevented from launching weak or unreviewed offers. This includes structured feedback layers, auto-generated assets, and clarity-driven UI enhancements.
+
+✅ UX & Logic Modules to Implement
+1️⃣ Quality Gatekeeper System
+Intercepts before final export/download
+
+Validates:
+
+Hook urgency + pattern break
+
+Proof credibility
+
+Story transformation
+
+Offer uniqueness
+
+CTA urgency
+
+If missing → Council guidance triggers + inline rewrite suggestions
+
+2️⃣ Council Feedback Enforcement (Opt-in Highlight)
+Trigger prompt: “Would you like The Council’s guidance before publishing?”
+
+Agents:
+
+Alex – Monetization lens
+
+Sabri – Hook strength
+
+Mo – Precision, clarity
+
+Olivia – Emotional resonance
+
+Michael – Funnel readiness
+
+Summary feedback block per section (1–10 score + quote + suggestion)
+
+3️⃣ Instant Asset Deployment
+After finalization or council approval:
+
+🖼️ Facebook/Instagram ad copy (single + carousel)
+
+📧 Email sequence (5-part, personalized)
+
+🖥️ Slide deck (10-slide webinar format)
+
+📝 Sales page HTML + Tailwind output
+
+📊 Dashboard view: click/engagement metrics + best next move
+
+4️⃣ Offer Health Warnings
+System raises flags:
+
+“No emotional contrast in story”
+
+“Missing scarcity in CTA”
+
+“Numbers in proof lack anchor (e.g. timeframe or volume)”
+
+5️⃣ Vault Historian
+Log past sessions with Council feedback history
+
+Analyze and compare open/conversion rates
+
+Auto-suggest what worked last time
+
+“Want to reuse your best CTA?” logic triggers
+
+📅 Account UX Enhancements
+Dashboard → Account Tab:
+
+Tier: Elite Access (highlighted)
+
+Date joined
+
+Last payment
+
+Next payment
+
+Billing status
+
+🔼 Upgrade CTA → Shows next tier (or “You’re on the top tier!”)
+
+Avatar dropdown → shortcut to "Upgrade", "Export History", and "Run New Vault"
+
+💥 Emotion-Driven UX (Framer Motion + Tailwind)
+Council cards: hover glow, quote animation, tone-color pulse
+
+Script panel: ripple click + editable focus pulse
+
+Toasts: success = slide-in with bounce, error = shake input + fade-red
+
+PDF export → “Forged by VaultForge” flame animation 🔥
+
+🧠 Included from User Insights (Jarvis Camp, The Host™)
+Users must never publish something that doesn’t match the Vault standard
+
+Emotional and strategic clarity at every step
+
+VaultForge is NOT just a generator — it's a guided business accelerator

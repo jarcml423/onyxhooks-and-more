@@ -1,0 +1,195 @@
+OFFERFORGE AI: PRO & VAULT FUNCTIONALITY SPECIFICATION
+
+🌟 PRO TIER FUNCTIONALITY OVERVIEW
+
+PRO will retain existing Hook and Offer functionality, but will also include the following additional capabilities, all navigable via a side navigation panel with labeled sections. Each section will provide a click-to-expand UI panel or card that reveals the generated output using existing user inputs + enhancements noted below.
+
+🏠 PRO TIER FEATURES & INPUT REQUIREMENTS
+
+1. Pricing Justification Generator
+
+Purpose: Help coaches justify premium pricing through emotional and financial ROI.
+
+Inputs Required:
+
+Coach's offer (already present)
+
+Target customer transformation (optional for deeper logic)
+
+Output: 3-part breakdown:
+
+Cost of inaction
+
+Emotional ROI
+
+Identity alignment
+
+2. Upsell / Cross-Sell Offer Builder
+
+Purpose: Create natural offer expansions.
+
+Inputs Required:
+
+Coach’s primary offer (already captured)
+
+Output:
+
+One upsell suggestion with transformation alignment
+
+One cross-sell suggestion for lateral value or speed of result
+
+3. Objection Eraser Engine
+
+Purpose: Overcome common buyer objections using emotional logic.
+
+Inputs Required:
+
+Industry type
+
+Current Hook (optional)
+
+Output:
+
+3 objection categories: Price, Time, Belief
+
+Reframes using OfferForge syntax
+
+4. Guarantee Generator
+
+Purpose: Create bold, trust-building guarantees.
+
+Inputs Required:
+
+Coach’s offer (already captured)
+
+Output:
+
+1–2 sentence guarantee using transformation and risk-reversal framing
+
+5. Urgency / Scarcity Engine
+
+Purpose: Add urgency without hype.
+
+Inputs Required:
+
+Hook or Offer (already selected/generated)
+
+Output:
+
+2 urgency examples (deadline + priority framing)
+
+1 scarcity framing (limited spots, inventory, etc.)
+
+💰 VAULT TIER FUNCTIONALITY OVERVIEW
+
+Vault includes ALL Pro features, and adds long-form content generators, monetization strategy tools, and story-driven brand assets. All elements are displayed in expandable UI cards categorized under: Brand, Monetization, Sequences.
+
+📈 VAULT TIER FEATURES & INPUT REQUIREMENTS
+
+6. Value Ladder Map Generator
+
+Purpose: Create $ → $$ → $$$ product strategy
+
+Inputs Required:
+
+Primary offer
+
+Transformation promised
+
+Output:
+
+Low-tier (lead magnet or mini-offer)
+
+Mid-tier (core offer)
+
+High-tier (prestige coaching/program)
+
+7. Origin Story Script Builder
+
+Purpose: Craft emotional founder story for VSLs, About pages, or lives
+
+Inputs Required:
+
+Coach turning point
+
+"Why I started this business"
+
+Who they serve
+
+Output:
+
+60–90 second brand story written in first-person
+
+8. Loyalty/VSL Script Writer
+
+Purpose: Generate mission-driven short form loyalty pitch or VSL
+
+Inputs Required:
+
+Hook selected
+
+Coach offer / industry
+
+Output:
+
+Full 90-second VSL script with: Pain → Truth → Shift → CTA structure
+
+9. Lead Magnet Generator
+
+Purpose: Generate downloadable resource or quiz lead magnet ideas
+
+Inputs Required:
+
+Coach’s niche/industry
+
+Offer or transformation goal
+
+Output:
+
+3 lead magnet options with title, format, and CTA suggestion
+
+10. Email Sequence Builder
+
+Purpose: Deliver a full campaign to convert leads to buyers
+
+Inputs Required:
+
+Selected offer
+
+Buyer pain points or objections (optional)
+
+Output:
+
+5–7 emails with subject lines + body copy
+
+Varying tone (inspire, educate, push, close)
+
+📝 INTERFACE DESIGN REQUIREMENTS
+
+Navigation:
+
+Sidebar with labeled tabs: Hooks, Offers, Pro Tools, Vault Tools
+
+Display:
+
+Each module uses collapsible/expandable cards
+
+Cards preview 1–2 lines, expand to show full formatted output
+
+Save/Export:
+
+Option to copy to clipboard, download as PDF, or push to CRM/email system
+
+🔍 BACK-END PROCESSING GUIDANCE
+
+Reuse base prompt inputs where available
+
+Pass Coach industry + offer description to each module automatically
+
+Allow optional enhancement inputs per tool to trigger richer outputs
+
+Layer new prompt logic onto existing foundation; do not override legacy prompts
+
+✅ FINAL INSTRUCTION TO DEV TEAM (REPLIT)
+
+“Pro and Vault tiers build directly on the existing Hook and Offer engine. Each feature listed above should be represented as a navigable UI element. Input requirements must be minimal, re-using coach description, industry, and existing generated hooks/offers where possible. Outputs should reflect advanced emotional logic, identity-based selling, and OfferForge persuasive structure. All features must follow the copy tone and psychological clarity already established in the Hook/Offer framework.”

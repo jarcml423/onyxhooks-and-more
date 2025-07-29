@@ -1,0 +1,21 @@
+Category,Test Case,Expected Result
+Authentication,User can register with valid credentials,200 OK + user created
+Authentication,User cannot register with duplicate email,400 Bad Request + error message
+Authentication,User can login with correct credentials,200 OK + auth token
+Authentication,User cannot login with invalid password,401 Unauthorized
+Authentication,Token expiration and refresh works correctly,Token refresh returns 200 OK
+Stripe Billing,Checkout session created on plan select,Stripe redirect URL returned
+Stripe Billing,Webhook creates new user record,User and subscription recorded
+Stripe Billing,Subscription cancellation reflects in DB,Status set to canceled
+Stripe Billing,User downgraded to Free plan correctly,Access limited to free tier features
+Hook Generation,Hook generated for Starter plan within limit,Hook content returned
+Hook Generation,Pro plan supports unlimited generation,Hook content returned
+Hook Generation,Free plan blocks after 2 hooks,403 Forbidden or prompt to upgrade
+Hook Generation,Vault plan generates premium hook + council analysis,Hook + analysis JSON
+Email,Welcome email sent after registration,Zoho logs show delivery
+Email,Upgrade confirmation email sent after Stripe success,Email delivered with correct plan info
+Admin,Admin can view webhook history,Events displayed correctly
+Admin,Admin can view subscription history,Stripe customer and plan details shown
+Admin,Admin receives error notification on webhook failure,Error email or dashboard flag raised
+Content,FAQ page loads with all 15 questions,All FAQs render with answers
+Content,Terms and Pricing page reflects latest plan info,Plan tiers and features visible

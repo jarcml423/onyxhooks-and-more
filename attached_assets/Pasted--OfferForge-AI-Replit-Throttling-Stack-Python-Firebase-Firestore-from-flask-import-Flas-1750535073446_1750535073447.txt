@@ -1,0 +1,125 @@
+# 📦 OfferForge AI – Replit Throttling Stack (Python + Firebase Firestore)
+
+from flask import Flask, request, jsonify
+from datetime import datetime
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+# --- 🔐 Initialize Firebase ---
+cred = credentials.Certificate("path/to/your-service-account.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
+# --- 🚀 Flask App ---
+app = Flask(__name__)
+
+# --- 📊 Plan Limits ---
+PLAN_LIMITS = {
+    "Free": {"hook": 2, "offer": 2, "council": 1},
+    "Starter": {"hook": 25, "offer": 10, "council": 2},
+    "Pro": {"hook": 999, "offer": 999, "council": 3},
+    "Vault": {"hook": 9999, "offer": 9999, "council": 9999}
+}
+
+# --- ⏱ Daily Reset Helper ---
+def needs_reset(last_reset):
+    today = datetime.utcnow().date()
+    last = datetime.strptime(last_reset, "%Y-%m-%dT%H:%M:%S.%fZ").date()
+    return last < today
+
+# --- 🔄 Usage Check + Update ---
+def check_and_update_usage(user_id, action_type):
+    doc_ref = db.collection("users").document(user_id)
+    doc = doc_ref.get()
+
+    if not doc.exists:
+        return {"error": "User not found."}, 404
+
+    user_data = doc.to_dict()
+    plan = user_data.get("plan", "Free")
+    usage = user_data.get("usage", {"hook": 0, "offer": 0, "council": 0})
+    last_reset = user_data.get("lastReset", datetime.utcnow().isoformat())
+
+    if needs_reset(last_reset):
+        usage = {"hook": 0, "offer": 0, "council": 0}
+        doc_ref.update({"usage": usage, "lastReset": datetime.utcnow().isoformat()})
+
+    if usage.get(action_type, 0) >= PLAN_LIMITS[plan][action_type]:
+        return {"error": f"{action_type.title()} limit reached for {plan} plan."}, 429
+
+    # Increment usage
+    usage[action_type] = usage.get(action_type, 0) + 1
+    doc_ref.update({"usage": usage})
+
+    return {"success": True, "newCount": usage[action_type]}
+
+# --- 🎯 Endpoint Example ---
+@app.route("/check-usage", methods=["POST"])
+def check_usage():
+    data = request.json
+    user_id = data.get("user_id")
+    action_type = data.get("action_type")
+
+    if not user_id or not action_type:
+        return jsonify({"error": "Missing user_id or action_type"}), 400
+
+    return jsonify(check_and_update_usage(user_id, action_type))
+
+# --- ✅ Start Flask ---
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
+# 📧 HTML Email Templates (5 Emails, Tier-Based)
+HTML_TEMPLATES = {
+    "email1": """
+    <html><body style='font-family:Arial;'>
+    <h2>Welcome to OfferForge AI!</h2>
+    <p>You scored <strong>{{score}}/100</strong> and are best suited for the <strong>{{tier}}</strong>.</p>
+    <p>Start with your personalized plan here: <a href='{{plan_link}}'>{{plan_link}}</a></p>
+    <img src='{{image_url}}' width='600'/>
+    </body></html>
+    """,
+    "email2": """
+    <html><body style='font-family:Arial;'>
+    <h2>This coach started like you… then scaled 10x</h2>
+    <p>Someone with a score of {{score}} was stuck charging $97. With OfferForge AI, they now charge $997+/month.</p>
+    <blockquote><em>{{quote}}</em></blockquote>
+    <p>Run your own simulation here: <a href='{{plan_link}}'>{{plan_link}}</a></p>
+    <img src='{{image_url}}' width='600'/>
+    </body></html>
+    """,
+    "email3": """
+    <html><body style='font-family:Arial;'>
+    <h2>Over 2,000 coaches have used OfferForge AI</h2>
+    <ul>
+    <li>$50M+ revenue generated</li>
+    <li>847% avg price increase</li>
+    <li>3.2x avg conversion lift</li>
+    </ul>
+    <p>Unlock your vault prompts here: <a href='{{plan_link}}'>{{plan_link}}</a></p>
+    <img src='{{image_url}}' width='600'/>
+    </body></html>
+    """,
+    "email4": """
+    <html><body style='font-family:Arial;'>
+    <h2>You're leaving money on the table…</h2>
+    <p>Coaches in your tier gain <strong>$1K–$5K/month</strong> after optimizing their offer structure.</p>
+    <p>We estimate you're missing up to {{delta}} right now.</p>
+    <p>Let’s fix it → <a href='{{plan_link}}'>{{plan_link}}</a></p>
+    <img src='{{image_url}}' width='600'/>
+    </body></html>
+    """,
+    "email5": """
+    <html><body style='font-family:Arial;'>
+    <h2>Your Council-powered offer expires in 48H</h2>
+    <p>This is your final chance to unlock the full OfferForge vault for your tier: <strong>{{tier}}</strong>.</p>
+    <ul>
+    <li>Editable rewrites</li>
+    <li>Offer simulations</li>
+    <li>Agent Council review</li>
+    </ul>
+    <p><a href='{{plan_link}}'>Upgrade now</a> before it disappears.</p>
+    <img src='{{image_url}}' width='600'/>
+    </body></html>
+    """
+}

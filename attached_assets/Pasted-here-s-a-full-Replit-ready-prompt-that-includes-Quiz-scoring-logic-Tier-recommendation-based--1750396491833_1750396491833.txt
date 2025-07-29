@@ -1,0 +1,105 @@
+here's a full Replit-ready prompt that includes:
+
+✅ Quiz scoring logic
+
+✅ Tier recommendation based on results
+
+✅ Detailed personalized results email logic
+
+✅ Kickoff for the post-quiz email campaign journey
+
+✅ Fallback if reCAPTCHA fails, so user still gets value
+
+🔧 REPLIT PROMPT – QUIZ SCORING, EMAIL RESULTS, AND EMAIL CAMPAIGN
+ts
+Copy
+Edit
+// 📌 Add this to Replit backend (Node.js / TS environment)
+
+// 1. SCORING LOGIC FOR QUIZ
+const scoreQuiz = (answers) => {
+  let score = 0;
+  const weights = {
+    A: 1,  // Beginner
+    B: 2,  // Intermediate
+    C: 3   // Advanced
+  };
+
+  answers.forEach((ans) => {
+    score += weights[ans] || 0;
+  });
+
+  let tier = 'Free';
+  if (score >= 12) tier = 'Vault';
+  else if (score >= 7) tier = 'Pro';
+
+  return { score, tier };
+};
+
+// 2. DETAILED RESULTS EMAIL + CTA
+const buildResultsEmail = (userEmail, name, score, tier, recs) => {
+  const subject = `Your OfferForgeAI Results Are In, ${name || 'Coach'}!`;
+
+  const body = `
+Hi ${name || 'there'}, 👋
+
+Thanks for completing your personalized OfferForgeAI Quiz. Based on your responses, here's where you landed:
+
+🏅 **Score**: ${score}
+🔐 **Recommended Tier**: ${tier}
+
+💡 **Here's what we recommend next:**
+${recs.map((r, i) => ` ${i + 1}. ${r}`).join('\n')}
+
+We’ve also mapped out your journey and queued up insights tailored just for your coaching style. Expect your first free resource drop in your inbox in 48 hours.
+
+👉 Want to take action now? [Click here to explore your recommended tier ➜]
+
+Onward and upward,  
+🔥 Team OfferForgeAI
+`;
+
+  return { to: userEmail, subject, body };
+};
+
+// 3. FALLBACK FOR RECAPTCHA FAILURE
+if (!reCaptchaVerified) {
+  log('reCAPTCHA failed, but sending email anyway for UX continuity.');
+  sendEmailFallback(userEmail, 'Your quiz results await inside.');
+}
+
+// 4. EMAIL CAMPAIGN JOURNEY (POST-QUIZ)
+const emailJourney = [
+  {
+    day: 0,
+    subject: '🎯 Your Personalized Quiz Results Are Here',
+    contentGenerator: (tier) => `You landed in the **${tier} Tier**. Over the next few weeks, we’ll equip you with proven frameworks, examples, and stories to match your tier and help you win more coaching clients with ease.`
+  },
+  {
+    day: 2,
+    subject: '🚀 DIY Marketing for Coaches — What Works (And What Doesn’t)',
+    contentGenerator: (tier) => `You could try these DIY tactics… but like Susan discovered, nothing works better than a system designed to scale coaching offers. Stick around to learn how she broke through her plateau.`
+  },
+  {
+    day: 5,
+    subject: '📈 Ready for Results Like These?',
+    contentGenerator: (tier) => `Curious what Pro coaches unlock? We’ll give you a sneak peek of their journey—and what tools powered their breakthroughs.`
+  },
+  {
+    day: 7,
+    subject: '🔥 Limited-Time Pro Offer — 15% Off for 72 Hours',
+    contentGenerator: (tier) => `Because you’ve shown you're ready, we’re offering you an exclusive 15% off your first Pro month. But only for the next 72 hours. Let’s take that next step together.`
+  }
+];
+
+// 5. DATABASE / FIRESTORE / SUPABASE INSERT (optional)
+saveToJourneyTracking(userEmail, score, tier, quizAnswers);
+
+🧠 What Replit Needs to Know
+Email sending logic (via Nodemailer or their preferred ESP)
+
+Campaign cadence based on timestamp of quiz completion
+
+Fallback logic if reCAPTCHA fails
+
+Tie score → tier → resource journey

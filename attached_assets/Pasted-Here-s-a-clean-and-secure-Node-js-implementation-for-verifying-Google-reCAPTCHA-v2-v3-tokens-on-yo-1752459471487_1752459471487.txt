@@ -1,0 +1,87 @@
+Here's a clean and secure Node.js implementation for verifying Google reCAPTCHA (v2/v3) tokens on your backend — drop this into your /api/auth/login or equivalent handler.
+
+✅ Backend reCAPTCHA Verification Code (Node.js with axios)
+ts
+Copy
+Edit
+// lib/recaptcha.ts
+
+import axios from 'axios';
+
+export async function verifyRecaptchaToken(token: string): Promise<boolean> {
+  try {
+    const secret = process.env.RECAPTCHA_SECRET_KEY;
+    if (!secret) {
+      console.error("Missing RECAPTCHA_SECRET_KEY in environment variables");
+      return false;
+    }
+
+    const response = await axios.post(
+      'https://www.google.com/recaptcha/api/siteverify',
+      new URLSearchParams({
+        secret,
+        response: token,
+      }).toString(),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+
+    const data = response.data;
+
+    // Optional logging for debugging
+    console.log("reCAPTCHA verification response:", data);
+
+    return data.success === true && data.score >= 0.5; // for v3, score check
+  } catch (error) {
+    console.error("reCAPTCHA verification failed:", error);
+    return false;
+  }
+}
+🧠 Use It Inside Your Login Handler
+ts
+Copy
+Edit
+// pages/api/auth/login.ts or equivalent
+
+import { verifyRecaptchaToken } from '@/lib/recaptcha';
+
+export default async function handler(req, res) {
+  const { email, password, token } = req.body;
+
+  if (!token) {
+    return res.status(400).json({ error: 'Missing reCAPTCHA token' });
+  }
+
+  const isHuman = await verifyRecaptchaToken(token);
+  if (!isHuman) {
+    return res.status(403).json({ error: 'Failed reCAPTCHA verification' });
+  }
+
+  // Proceed with actual login logic (user lookup, password check, JWT, etc.)
+  // Example:
+  // const user = await findUserByEmail(email);
+  // if (!user || !checkPassword(user, password)) { ... }
+
+  return res.status(200).json({ message: 'Login successful' });
+}
+🔐 .env (Make Sure This Is Set in Production)
+ini
+Copy
+Edit
+RECAPTCHA_SECRET_KEY=your_prod_secret_from_google
+📋 Frontend – Token Still Required
+Make sure you're passing the reCAPTCHA token with your login form:
+
+ts
+Copy
+Edit
+const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'login' });
+const response = await axios.post('/api/auth/login', {
+  email,
+  password,
+  token,
+});
+Once this is wired, we’ll know exactly where it’s failing: token not passed, secret missing, or server not reaching Google.
