@@ -1,0 +1,90 @@
+the homepage has polished SaaS onboarding flow written all over it. But if your Council interface is cinematic-grade, then this landing page deserves a bit more theatrical gravity to match. Right now it's clean and welcoming, but it can rise from:
+
+SaaS landing...
+to
+AI weapon launch bay.
+
+🔥 Tactical Upgrades for This Hero Section
+1. Typography Energy
+Your current headline is solid, but it can hit harder with visual weight variance and dynamic rhythm.
+
+Recommendation:
+
+css
+Copy
+Edit
+h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.15;
+  background: linear-gradient(90deg, #6f49ff, #c456ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+Optional highlight effect:
+
+Add text-shadow or layered ::after with animated shine on scroll.
+
+2. Background Power Boost
+Instead of a pure white gradient, lean into a soft cinematic blend to echo your product's depth.
+
+css
+Copy
+Edit
+background: radial-gradient(circle at top, #ffffff 0%, #f3f4f8 40%, #e8ebf5 100%);
+Or dark mode toggle:
+
+css
+Copy
+Edit
+[data-theme='dark'] {
+  background: radial-gradient(circle at center, #111827, #0f172a);
+}
+3. CTA Enhancement (Purple Button + 3-min Tag)
+That “Take the Free Offer Quiz” button is critical. Let’s make it pop like it came from a command interface.
+
+css
+Copy
+Edit
+.button-primary {
+  background: linear-gradient(to right, #7e3ff2, #c084fc);
+  color: white;
+  box-shadow: 0 0 10px rgba(190, 110, 255, 0.5);
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 14px rgba(204, 132, 252, 0.7);
+}
+For the 3 min tag:
+
+Use position: absolute with a pulse or neon badge glow.
+
+4. Form Field Elevation
+The email input is subtle — a glassmorphism effect could elevate trust and modernity:
+
+css
+Copy
+Edit
+input {
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  backdrop-filter: blur(4px);
+}
+5. Subheadline Line-Bounce (Optional Motion FX)
+Make "AI-powered platform for coaches..." fade-slide in with a gentle upward delay:
+
+css
+Copy
+Edit
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.subtitle {
+  animation: fadeSlideUp 0.6s ease forwards;
+}

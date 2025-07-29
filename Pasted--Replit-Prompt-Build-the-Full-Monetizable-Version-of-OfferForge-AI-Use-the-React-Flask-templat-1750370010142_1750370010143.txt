@@ -1,0 +1,203 @@
+ Replit Prompt: Build the Full Monetizable Version of OfferForge AI
+⚠️ Use the React + Flask template in Replit for full-stack support. Paste this full prompt into Replit Ghostwriter or the “Create Replit” dialog box.
+
+🔧 FULL PROMPT (PASTE THIS)
+plaintext
+Copy
+Edit
+Create a full-stack SaaS web app called **OfferForge AI** — an AI-powered platform for coaches, course creators, and service providers to generate, optimize, and monetize high-converting digital offers, funnels, and pricing strategies. Include all core product features plus viral growth and monetization systems.
+
+---
+
+✅ CORE FEATURES:
+
+1. **AI Offer Generator**
+   - Inputs: niche, desired transformation, optional current offer
+   - Output: offer name, price range, 3 headlines, and benefits
+   - Buttons: “Remix Offer” (re-generates using GPT), “Save Offer”
+
+2. **Funnel Critique Tool**
+   - Inputs: Funnel URL or pasted HTML/copy
+   - Output: GPT critique of CTA clarity, messaging, structure
+   - Optional tone override input (e.g., “skeptical buyer style”)
+
+3. **ROI Simulator + Comparison Mode**
+   - Inputs: traffic, conversion rate, price, ad spend
+   - Output: breakeven analysis, net profit, charts
+   - Feature: compare 2 offer models side-by-side
+
+4. **Prompt Vault (Locked Preview Style)**
+   - Categories: VSLs, ads, testimonials, hooks, email prompts
+   - Locked items show blurred preview until upgraded
+   - Search and filter UI
+
+5. **Offer Strength Quiz**
+   - Route: `/quiz`
+   - 5-question quiz with scoring logic (0–100)
+   - Result Page:
+     - Tiered feedback (Needs Work / Getting Close / Optimized)
+     - CTA to try OfferForge or download lead magnet PDF
+   - Auto-email result + GPT-powered improvement suggestion
+
+6. **Referral / Affiliate Program**
+   - Route: `/referral`
+   - Users receive unique referral link post-signup
+   - Track referral signups, upgrades, commissions
+   - Dashboard view: Referrals, earnings, link
+   - Optional: Connect Rewardful or LemonSqueezy
+
+7. **Viral Content Demo Page**
+   - Route: `/before-after`
+   - Show 3 “Before vs After” Offer transformations
+   - Social sharing buttons for Twitter/X and TikTok
+   - CTA: “Try OfferForge Free”
+
+8. **Agency Mode (Pro+ Feature)**
+   - Route: `/agency`
+   - Allow managing multiple brands or client offers
+   - Team workspace w/ permissions (basic)
+   - Upgrade path to $99/mo tier
+
+---
+
+🌐 FRONTEND:
+
+- Framework: React (Vite or CRA)
+- Styling: TailwindCSS
+- Routing: `react-router-dom`
+- Pages:
+  - `/` – Landing Page
+  - `/quiz`
+  - `/result`
+  - `/offer-generator`
+  - `/roi-sim`
+  - `/vault`
+  - `/before-after`
+  - `/referral`
+  - `/agency`
+  - `/dashboard`
+  - `/login`, `/signup`
+
+---
+
+🎨 LANDING PAGE DESIGN (`/`):
+
+- Headline: “Supercharge Your Offers. No Code. No Guesswork.”
+- Sections:
+  - Hero: Quiz CTA + Email capture
+  - Explainer GIF placeholder
+  - Feature blocks: Offer Generator, Vault, Simulator
+  - Testimonials
+  - Pricing: Free | Pro $25/mo | Vault $49/mo | Agency $99/mo
+  - Blurred prompt preview tiles
+  - Footer: Privacy, Terms, Contact
+
+---
+
+🧠 BACKEND:
+
+- Framework: Flask or FastAPI
+- GPT-Powered Endpoints:
+  - `POST /generate-offer`
+  - `POST /analyze-funnel`
+  - `POST /simulate-roi`
+  - `POST /compare-roi`
+  - `POST /quiz-score`
+  - `POST /rewrite-offer`
+  - `GET /vault-prompts`
+  - `GET /referral-data`
+
+---
+
+🔐 AUTHENTICATION:
+
+- Use **Firebase Auth** or **Clerk.dev**
+- Support: Email/password login, Google OAuth
+- Roles:
+  - Free (basic)
+  - Pro ($25/mo)
+  - Vault Add-On ($49/mo)
+  - Agency ($99/mo)
+
+---
+
+💳 BILLING (Stripe):
+
+- Use **Stripe** for recurring plans
+- Plans:
+  - Free = 2 offer generations + quiz access
+  - Pro = $25/mo → unlimited offers + ROI simulator
+  - Vault = +$49/mo or $149/yr
+  - Agency = $99/mo (multi-client access)
+- Webhooks:
+  - Track upgrades via referral
+  - Activate features post-payment
+
+---
+
+📦 DATABASE:
+
+- Use Supabase (PostgreSQL) or Replit DB
+- Tables:
+  - Users (roles, usage, referrals)
+  - Offers (linked to user)
+  - Funnel Reviews
+  - ROI Simulations
+  - Prompt Vault (static JSON or DB)
+  - Quiz Results
+  - Referrals / affiliate tracking
+  - Agency client workspaces
+
+---
+
+✉️ EMAIL INTEGRATION:
+
+- Use **Resend.com** or **Mailgun**
+- Triggers:
+  - Welcome email
+  - Quiz results + tip
+  - Offer generation summary
+  - Upgrade confirmation
+  - Referral earnings
+
+---
+
+🧪 TESTING:
+
+- Use dummy accounts (free, pro, vault, agency)
+- Simulate GPT if API not connected
+- Test:
+  - Quiz → Result → Email
+  - Vault blur → CTA → Stripe upgrade
+  - Referral → Signup → Paid → Dashboard
+
+---
+
+📊 OPTIONAL ANALYTICS:
+
+- Log key events: offers generated, remix button clicks, quiz starts, referrals
+- Store heatmap of most-used Vault prompts
+- Use simple logging or Supabase event log
+
+---
+
+🛡 SECRET MANAGEMENT:
+
+Use **Replit Secrets** to securely store:
+- `OPENAI_API_KEY`
+- `STRIPE_SECRET_KEY`
+- `MAILGUN_API_KEY` or `RESEND_API_KEY`
+- `FIREBASE_CONFIG_JSON`
+
+---
+
+🎯 FINAL GOAL:
+
+Deliver a clean, fast, GPT-powered SaaS tool that drives conversions from the first click. Users should land, take the quiz, get a clear result, and be prompted to use OfferForge AI or upgrade to unlock premium tools. Support monetization via:
+- Cold lead quiz funnel
+- Viral demo content
+- Affiliate referrals
+- Tiered upgrades (Pro, Vault, Agency)
+
+Ensure it is built in one deployable Replit environment, with clear file separation and scalable code structure.
+Boss, this is your single master Replit AI prompt to go from zero to monetized OfferForge AI platform in one pass.

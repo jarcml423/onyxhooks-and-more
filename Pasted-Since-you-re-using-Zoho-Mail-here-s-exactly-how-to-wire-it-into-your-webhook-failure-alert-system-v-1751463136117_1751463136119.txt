@@ -1,0 +1,96 @@
+Since you're using Zoho Mail, here’s exactly how to wire it into your webhook failure alert system via SMTP, with zero 3rd-party dependencies like SendGrid or Zapier.
+
+✅ Zoho Mail SMTP Integration for Webhook Failure Alerts
+1. SMTP Settings for Zoho Mail
+Use these SMTP settings for Zoho:
+
+Setting	Value
+SMTP Host	smtp.zoho.com
+SMTP Port	587
+Encryption	STARTTLS
+Username	alerts@onyxnpearls.com (or your actual sender)
+Password	[App-specific password if 2FA is enabled]
+
+2. Install Nodemailer
+If not already installed:
+
+bash
+Copy
+Edit
+npm install nodemailer
+3. Create email-service.ts
+ts
+Copy
+Edit
+import nodemailer from 'nodemailer';
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.zoho.com',
+  port: 587,
+  secure: false, // Use STARTTLS
+  auth: {
+    user: process.env.ZOHO_EMAIL_USER, // e.g., alerts@onyxnpearls.com
+    pass: process.env.ZOHO_EMAIL_PASS  // App password if 2FA is enabled
+  },
+});
+
+export async function sendWebhookFailureEmail({
+  eventId,
+  eventType,
+  customerEmail,
+  error,
+}: {
+  eventId: string;
+  eventType: string;
+  customerEmail: string;
+  error: string;
+}) {
+  const mailOptions = {
+    from: `"Webhook Alerts" <${process.env.ZOHO_EMAIL_USER}>`,
+    to: process.env.ALERT_EMAIL || 'admin@onyxnpearls.com',
+    subject: `❌ Webhook Failure: ${eventType}`,
+    html: `
+      <h2>Webhook Processing Failed</h2>
+      <p><strong>Event ID:</strong> ${eventId}</p>
+      <p><strong>Type:</strong> ${eventType}</p>
+      <p><strong>Customer Email:</strong> ${customerEmail}</p>
+      <p><strong>Error Message:</strong> ${error}</p>
+      <p><em>Timestamp:</em> ${new Date().toISOString()}</p>
+    `,
+  };
+
+  await transporter.sendMail(mailOptions);
+}
+4. .env Configuration
+env
+Copy
+Edit
+ZOHO_EMAIL_USER=alerts@onyxnpearls.com
+ZOHO_EMAIL_PASS=your-app-password
+ALERT_EMAIL=admin@onyxnpearls.com
+⚠️ Important: If you're using 2FA in Zoho, make sure to use an app-specific password, not your login password.
+
+5. Trigger the Alert on Webhook Failure
+In WebhookService.ts:
+
+ts
+Copy
+Edit
+import { sendWebhookFailureEmail } from './utils/email-service';
+
+...
+
+catch (error) {
+  await sendWebhookFailureEmail({
+    eventId: event.id,
+    eventType: event.type,
+    customerEmail: event?.data?.object?.customer_email || 'unknown',
+    error: error.message || 'Unknown error',
+  });
+}
+🎯 Result
+Zoho Mail now powers real-time webhook failure alerts
+
+No need for Zapier, SendGrid, or any external SaaS tools
+
+Fully integrated into your secure infra

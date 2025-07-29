@@ -1,0 +1,99 @@
+Replit Prompt: Lock Down OfferForge AI Security + Anti-Bot Email Signup
+js
+Copy
+Edit
+// 🔒 1. Token Abuse / Overuse Protection
+// Use per-user usage counters stored in Redis or your DB (Mongo, Firebase, etc.)
+const usageLimit = 1000; // daily cap
+const usage = await db.get(`usage_${user.id}_${today}`);
+if (usage > usageLimit) {
+  return res.status(429).send("Usage limit reached. Upgrade plan or wait 24h.");
+}
+await db.increment(`usage_${user.id}_${today}`);
+
+// 🔒 2. Incognito / Bot Session Detection
+// Require login, track by IP + user ID + device fingerprint
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
+const fpPromise = FingerprintJS.load();
+const fp = await fpPromise;
+const result = await fp.get();
+const fingerprint = result.visitorId;
+// Store this with user record for behavior tracking
+
+// 🔒 3. Vault Scraping Protection (Frontend JS)
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 's' || e.key === 'u')) {
+    e.preventDefault();
+    alert("Saving/printing is disabled for this content.");
+  }
+});
+document.addEventListener('copy', () => {
+  document.body.style.filter = 'blur(4px)';
+  setTimeout(() => document.body.style.filter = '', 3000);
+});
+
+// Optional: Use CSS to disable right-click + printing
+const css = `
+  * { -webkit-user-select: none; user-select: none; }
+  @media print { body { display: none !important; } }
+  body { pointer-events: none; }
+`;
+const style = document.createElement('style');
+style.innerHTML = css;
+document.head.appendChild(style);
+
+// 🔒 4. Obfuscate HTML Vault Content
+// Only send dynamic vault offers via server-side rendering (SSR) or obfuscated JS
+// e.g., do not store raw offer HTML in page source; fetch it securely post-login
+
+// 🔒 5. OpenAI Key Protection
+// Do NOT use OpenAI keys in frontend JS — keep keys in server-side .env
+app.post("/generate-offer", async (req, res) => {
+  // Secure OpenAI call
+  const result = await openai.createChatCompletion({ ... });
+  res.json(result);
+});
+
+// 🔒 6. Session Hijack Protection
+// Use short-lived JWT tokens + refresh token + fingerprint check
+const jwt = require("jsonwebtoken");
+const payload = { userId: user.id, fingerprint };
+const accessToken = jwt.sign(payload, ACCESS_SECRET, { expiresIn: "15m" });
+const refreshToken = jwt.sign(payload, REFRESH_SECRET, { expiresIn: "7d" });
+
+// 🔒 7. Referral Exploit Prevention
+// Prevent self-referral by validating referral IP/device/email
+if (referrerEmail === user.email || referrerIP === userIP || referrerFingerprint === fingerprint) {
+  return res.status(403).send("Invalid referral attempt.");
+}
+
+// 🔒 BONUS: Bot-Proof Your Email Signup Form
+// 1. Use reCAPTCHA v2 on email forms
+// 2. Throttle signups from the same IP
+// 3. Store email leads with rate limits (1 per IP/hour)
+const recentSignup = await db.get(`signup_${ip}`);
+if (recentSignup) {
+  return res.status(429).send("Too many signups from this IP. Try later.");
+}
+await db.set(`signup_${ip}`, true, { ttl: 3600 }); // 1 hour TTL
+
+// Also log suspicious activity
+console.log(`[SECURITY] Lead form triggered by ${ip}, ${fingerprint}`);
+🧱 Integrations You’ll Need
+Component	Use Case
+reCAPTCHA v2	Stops bot signups & form spamming
+JWT Auth	Secure, short-lived login sessions
+Redis or Firebase	Store usage counters and throttle data
+FingerprintJS	Track device to prevent abuse
+Express Rate Limit	Optional for per-route API protection
+
+👁️‍🗨️ Visual Defenses on Vault Page
+🔒 Right-click disabled
+
+🔒 Printing blocked with @media print
+
+🔒 Copy = temporary blur
+
+🔒 Screenshots can be detected with JavaScript (not 100% foolproof but useful deterrent)
+
+Let me know if you're using Firebase DB or something else and I’ll tailor the data storage and rate-limiting logic accordingly.

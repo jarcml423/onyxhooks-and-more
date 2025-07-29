@@ -1,0 +1,77 @@
+You are generating the full FAQ content page for the OnyxHooks & More web app. Format the output in clean HTML or Markdown (depending on the component system used), and ensure mobile-friendly formatting. This will be shown to all logged-in users.
+
+**Brand Name:** OnyxHooks & More  
+**Voice:** Clear, helpful, credible with some friendly polish. Use short paragraphs, headers, and bullet points.  
+**Product Description:** OnyxHooks & More helps users craft high-converting marketing hooks using AI-powered automation, neuromarketing psychology, and elite creative analysis.  
+
+Include the following in the output:
+
+---
+
+**Page Title:**  
+🧠 OnyxHooks & More – Frequently Asked Questions (FAQ)
+
+**Intro Section:**  
+Brief welcome message + short sentence that the most common questions are answered here.
+
+---
+
+**Top 15 FAQ Entries (write all of these out):**
+
+1. **What is OnyxHooks & More?**  
+   OnyxHooks & More is an AI-powered marketing tool that helps you generate high-converting marketing hooks with the support of advanced psychology, A/B testing tools, and elite analysis.
+
+2. **Who is this platform for?**  
+   It’s built for creators, marketers, coaches, agencies, SaaS founders, and anyone looking to improve message clarity and conversion rates.
+
+3. **What are the differences between the plans?**  
+   | Plan        | Price                  | Includes                                                                                 |
+   |-------------|------------------------|------------------------------------------------------------------------------------------|
+   | **Free**    | $0                     | 2 hooks/month + basic export                                                            |
+   | **Starter** | $47/mo                 | 25 hooks/month + edit/export features                                                   |
+   | **Pro**     | $197/mo                | Unlimited hooks + access to the **AI Council** + Battle Lab                             |
+   | **Vault**   | $5,000/year (upfront)  | Everything in Pro + **Swipe Copy Bank**, **Elite Tools**, and **Founder's Circle Access** |
+   
+   > 💡 **The AI Council is a panel of elite top AI marketers and AI strategists**, trained to analyze and optimize your hooks for maximum impact.
+
+4. **What is a “hook”?**  
+   A hook is a short, compelling marketing phrase that captures attention, drives interest, and gets clicks or conversions.
+
+5. **What is the AI Council?**  
+   The AI Council is an elite panel of specialized AI agents trained in persuasion, branding, direct response, storytelling, and strategy. They analyze your hook and give conversion-focused feedback.
+
+6. **What is the Swipe Copy Bank?**  
+   Exclusive to Vault members, it’s a curated vault of high-converting templates, angles, and hooks from proven campaigns across multiple industries.
+
+7. **Can I cancel anytime?**  
+   Yes. You can cancel or downgrade your subscription anytime from your account dashboard.
+
+8. **What happens if I go over my hook limit?**  
+   The Free and Starter plans have monthly limits. You’ll be prompted to upgrade once your limit is reached.
+
+9. **Can I export hooks to my CRM or design tools?**  
+   Yes. Hooks can be exported to text, CSV, and copy-pasted into your CRM, ad manager, email tool, or design software.
+
+10. **Do you offer refunds?**  
+    We offer a satisfaction guarantee. If you're not satisfied within 7 days of purchase, email support for review.
+
+11. **How often is the Swipe Copy Bank updated?**  
+    Monthly. New hooks, campaigns, and playbooks are added for Vault members.
+
+12. **Do you offer team or agency accounts?**  
+    Yes. Team features are in development. For early access, contact us at support@onyxhooks.com.
+
+13. **Do I need marketing experience to use this?**  
+    Not at all. The platform is beginner-friendly and designed to help anyone improve their copy.
+
+14. **How long does it take to generate a hook?**  
+    Usually under 30 seconds. The AI works in real-time and delivers multiple versions to choose from.
+
+15. **Can I use these hooks on social media, ads, and email?**  
+    Yes! Our hooks are optimized for paid ads, email subject lines, landing pages, video intros, and more.
+
+---
+
+**Closing Message:**  
+Still have questions? [Contact support](mailto:support@onyxhooks.com) — we’re here to help.
+
