@@ -1,0 +1,133 @@
+{
+  "exportDate": "2025-07-29T02:45:00.000Z",
+  "platform": "OnyxHooks & More™",
+  "purpose": "Linked Account Secrets & Relationships",
+  "businessEntity": "Onyx & Pearls Management, Inc.",
+  "primaryDomain": "onyxnpearls.com",
+  
+  "emailAccounts": {
+    "adminEmail": "jarvis.camp@onyxnpearls.com",
+    "alertEmail": "no-reply@onyxnpearls.com", 
+    "supportEmail": "support@onyxnpearls.com",
+    "emailProvider": "Zoho Mail",
+    "smtpConfiguration": {
+      "host": "smtp.zoho.com",
+      "port": 587,
+      "user": "jarvis.camp@onyxnpearls.com",
+      "passwordRequired": true
+    }
+  },
+  
+  "paymentProcessing": {
+    "provider": "Stripe",
+    "accountLinkedTo": "onyxnpearls.com",
+    "productTiers": {
+      "starter": {
+        "priceId": "price_1RgHHvITqqIIThAChdh4xM3Z",
+        "amount": "$47/month"
+      },
+      "pro": {
+        "priceId": "price_1RgHQvITqqIIThACULsMPt1V", 
+        "amount": "$197/month"
+      },
+      "vault": {
+        "priceId": "price_1RgKcmITqqIIThACdOBoNMyD",
+        "amount": "$5,000/year"
+      }
+    },
+    "webhookEndpoint": "/webhook/stripe",
+    "keysRequired": [
+      "STRIPE_SECRET_KEY",
+      "VITE_STRIPE_PUBLISHABLE_KEY", 
+      "STRIPE_WEBHOOK_SECRET"
+    ]
+  },
+  
+  "authentication": {
+    "provider": "Firebase",
+    "projectId": "offerforgeai",
+    "googleCloudProject": "offerforgeai",
+    "configuration": {
+      "authDomain": "offerforgeai.firebaseapp.com",
+      "storageBucket": "offerforgeai.firebasestorage.app",
+      "messagingSenderId": "940024080650",
+      "appId": "1:940024080650:web:5f8df24c044c85672432f3"
+    },
+    "authorizedDomains": [
+      "onyxnpearls.com",
+      "www.onyxnpearls.com"
+    ]
+  },
+  
+  "security": {
+    "recaptcha": {
+      "provider": "Google reCAPTCHA",
+      "version": "v2",
+      "domainsProtected": [
+        "onyxnpearls.com",
+        "www.onyxnpearls.com"
+      ],
+      "keysRequired": [
+        "VITE_RECAPTCHA_SITE_KEY",
+        "RECAPTCHA_SECRET_KEY"
+      ]
+    }
+  },
+  
+  "aiServices": {
+    "provider": "OpenAI",
+    "model": "GPT-4o",
+    "usage": "Hook generation, AI analysis, content creation",
+    "keyRequired": "OPENAI_API_KEY"
+  },
+  
+  "emailDelivery": {
+    "transactionalEmail": {
+      "provider": "SendGrid",
+      "domain": "onyxnpearls.com",
+      "keyRequired": "SENDGRID_API_KEY"
+    },
+    "smtpBackup": {
+      "provider": "Zoho Mail",
+      "account": "jarvis.camp@onyxnpearls.com",
+      "passwordRequired": true
+    }
+  },
+  
+  "database": {
+    "provider": "Neon (PostgreSQL)",
+    "environment": "Production",
+    "connectionConfigured": true,
+    "backupStrategy": "Automated daily backups"
+  },
+  
+  "deployment": {
+    "currentPlatform": "Replit",
+    "targetPlatform": "Railway (Migration in progress)",
+    "customDomain": "onyxnpearls.com",
+    "sslCertificate": "Automated (Let's Encrypt)"
+  },
+  
+  "accountRelationships": {
+    "primaryAdmin": "jarvis.camp@onyxnpearls.com",
+    "businessRegistration": "Onyx & Pearls Management, Inc.",
+    "paymentEntity": "Stripe account linked to business",
+    "domainOwnership": "onyxnpearls.com",
+    "emailDomainControl": "@onyxnpearls.com via Zoho",
+    "cloudServices": "Firebase (Google), Neon (Database), OpenAI (AI)"
+  },
+  
+  "migrationReadiness": {
+    "configurationComplete": "92%",
+    "missingCredentials": 2,
+    "criticalMissing": [
+      "VITE_STRIPE_PUBLISHABLE_KEY",
+      "STRIPE_WEBHOOK_SECRET"
+    ],
+    "readyForDeployment": true,
+    "requiresManualSetup": [
+      "Stripe webhook endpoint configuration",
+      "Railway domain DNS setup"
+    ]
+  }
+}

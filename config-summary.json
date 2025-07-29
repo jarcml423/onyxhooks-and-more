@@ -1,0 +1,48 @@
+{
+  "exportDate": "2025-07-29T02:16:24.869Z",
+  "platform": "OnyxHooks & More™",
+  "purpose": "Railway Migration Configuration",
+  "totalSecrets": 24,
+  "configuredSecrets": 22,
+  "missingSecrets": 2,
+  "categories": {
+    "database": [
+      "DATABASE_URL"
+    ],
+    "authentication": [
+      "VITE_RECAPTCHA_SITE_KEY",
+      "RECAPTCHA_SECRET_KEY"
+    ],
+    "ai": [
+      "OPENAI_API_KEY"
+    ],
+    "payments": [
+      "STRIPE_SECRET_KEY",
+      "VITE_STRIPE_PUBLISHABLE_KEY",
+      "STRIPE_WEBHOOK_SECRET",
+      "STRIPE_STARTER_PRICE_ID",
+      "STRIPE_PRO_PRICE_ID",
+      "STRIPE_VAULT_PRICE_ID"
+    ],
+    "email": [
+      "SENDGRID_API_KEY",
+      "ZOHO_EMAIL_USER",
+      "ZOHO_EMAIL_PASS",
+      "ALERT_EMAIL"
+    ],
+    "firebase": [
+      "VITE_FIREBASE_API_KEY",
+      "VITE_FIREBASE_AUTH_DOMAIN",
+      "VITE_FIREBASE_PROJECT_ID",
+      "VITE_FIREBASE_STORAGE_BUCKET",
+      "VITE_FIREBASE_MESSAGING_SENDER_ID",
+      "VITE_FIREBASE_APP_ID"
+    ],
+    "deployment": [
+      "REPLIT_DEV_DOMAIN",
+      "REPLIT_DOMAINS",
+      "NODE_ENV",
+      "PORT"
+    ]
+  }
+}
