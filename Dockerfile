@@ -1,64 +1,47 @@
-# Multi-stage build for production optimization
-FROM node:20-slim AS builder
+# Step 1: Use full Node image, not Alpine or Slim
+FROM node:20 AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies for native modules
-RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
+# Step 2: Install build deps
+RUN apt-get update && \
+    apt-get install -y python3 make g++ && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy package files for dependency installation
+# Step 3: Copy only package files first
 COPY package*.json ./
 
-# Install ALL dependencies (including build tools)
-RUN npm install --include=dev
+# Step 4: Install all deps
+RUN npm install
 
-# Copy source code
+# Step 5: Copy rest of the code
 COPY . .
 
-# Build the application
+# Step 6: Build app
 RUN npm run build
 
-# Verify build output exists
-RUN ls -la dist/ && ls -la dist/public/
+# Step 7: Production image
+FROM node:20
 
-# Production stage
-FROM node:20-slim AS production
-
-# Set working directory
 WORKDIR /app
 
-# Install only system dependencies needed for runtime
-RUN apk add --no-cache dumb-init
-
-# Copy package files
+# Step 8: Only install production deps
 COPY package*.json ./
+RUN npm install --omit=dev
 
-# Install only production dependencies
-RUN npm ci --omit=dev && npm cache clean --force
-
-# Copy built application from builder stage
+# Step 9: Copy built app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/shared ./shared
 
-# Create non-root user for security
-RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
-
-# Change ownership of app directory
+# Step 10: Create non-root user
+RUN addgroup --system nodejs && adduser --system --ingroup nodejs nodejs
 RUN chown -R nodejs:nodejs /app
 
-# Switch to non-root user
 USER nodejs
 
-# Expose port
 EXPOSE 5000
 
-# Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD node -e "require('http').get('http://localhost:5000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
 
-# Use dumb-init to handle signals properly
-ENTRYPOINT ["dumb-init", "--"]
-
-# Start the application
 CMD ["npm", "start"]
